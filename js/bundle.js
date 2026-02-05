@@ -474,6 +474,9 @@ const UI = {
             const player = players.find(p => p.id === change.playerId);
             const column = document.createElement('div');
             column.className = 'score-preview-column';
+            if (change.change > 0) {
+                column.classList.add('winner-column');
+            }
 
             const playerName = document.createElement('div');
             playerName.className = 'preview-player-name';

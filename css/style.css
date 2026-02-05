@@ -467,6 +467,11 @@ h1, h2, h3 {
     border: 1px solid #eee;
 }
 
+.score-preview-column.winner-column {
+    background: #ffd1d1;
+    border: 1px solid #ef9a9a;
+}
+
 .preview-player-name {
     font-weight: 500;
     color: #333;
