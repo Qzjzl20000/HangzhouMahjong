@@ -560,6 +560,7 @@ const UI = {
                 <span>第 ${round.roundId} 局 - ${dateStr}</span>
             </div>
             <div class="history-item-winner">胡家: ${winner.name} (${round.winTypeName})</div>
+            ${round.bankerName ? `<div class="history-item-banker">庄家: ${round.bankerName} (${round.bankerConsecutiveWins}连庄)</div>` : ''}
             ${fanInfo}
             ${winTypeDetail}
             ${scoresHtml}
@@ -721,6 +722,8 @@ const App = {
             winTypeLabel: winType.label,
             winTypeDescription: winType.description,
             bankerId: banker.id,
+            bankerName: banker.name,
+            bankerConsecutiveWins: banker.consecutiveWins,
             baseScore: 1,
             multiplier: Math.pow(2, this.currentScorePreview.bankerFan),
             scoreChanges: this.currentScorePreview.scoreChanges,

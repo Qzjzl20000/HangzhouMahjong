@@ -537,6 +537,11 @@ h1, h2, h3 {
     color: #667eea;
 }
 
+.history-item-banker {
+    color: #e67e22;
+    font-size: 14px;
+}
+
 /* 操作区域 */
 .actions-section {
     text-align: center;
