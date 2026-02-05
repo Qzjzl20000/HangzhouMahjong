@@ -356,6 +356,8 @@ const UI = {
             confirmRestartBtn: document.getElementById('confirm-restart-btn'),
             dice1: document.getElementById('dice1'),
             dice2: document.getElementById('dice2'),
+            dice1Value: document.getElementById('dice1-value'),
+            dice2Value: document.getElementById('dice2-value'),
             diceTotal: document.getElementById('dice-total'),
             rollDiceBtn: document.getElementById('roll-dice-btn')
         };
@@ -499,6 +501,8 @@ const UI = {
             }
         });
 
+        this.elements.dice1Value.textContent = dice1;
+        this.elements.dice2Value.textContent = dice2;
         this.elements.diceTotal.textContent = total;
     },
 
