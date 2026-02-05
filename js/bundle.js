@@ -188,6 +188,7 @@ const ScoreCalculator = {
             types.forEach(type => {
                 result.push({
                     value: type.id,
+                    name: type.name,
                     label: type.label,
                     category: category,
                     fan: type.fan
@@ -446,7 +447,7 @@ const UI = {
             types.forEach(type => {
                 const option = document.createElement('option');
                 option.value = type.value;
-                option.textContent = `${type.label} (${type.fan}番)`;
+                option.textContent = `${type.name}: ${type.label}`;
                 group.appendChild(option);
             });
             this.elements.winTypeSelect.appendChild(group);
