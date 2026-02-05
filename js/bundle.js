@@ -460,8 +460,8 @@ const UI = {
         const infoItem = document.createElement('div');
         infoItem.className = 'score-preview-info';
         infoItem.innerHTML = `
-            胡牌番数：<span class="fan-badge fan-${fan}">${fan}番</span>
-            连庄番数：<span class="fan-badge fan-banker-${bankerFan}">${bankerFan}番</span>
+            <span class="fan-badge fan-${fan}">胡${fan}番</span>
+            <span class="fan-badge fan-banker-${bankerFan}">庄${bankerFan}番</span>
         `;
         this.elements.scorePreviewContent.appendChild(infoItem);
 
