@@ -463,10 +463,10 @@ h1, h2, h3 {
 
 .history-winner-info {
     padding: 6px 12px;
-    background: #2980b9;
+    background: #e8f4f8;
     border-radius: 6px;
     font-size: 13px;
-    color: #fff;
+    color: #2980b9;
     font-weight: 500;
     margin: 6px 0;
     text-align: center;
@@ -479,6 +479,17 @@ h1, h2, h3 {
 
 .history-player-column.banker .history-player-name {
     color: #e67e22;
+}
+
+.history-player-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.history-player-info {
+    font-size: 10px;
+    color: #999;
 }
 
 /* 历史记录 - 一行4个玩家 */

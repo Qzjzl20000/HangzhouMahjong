@@ -544,16 +544,15 @@ const UI = {
                     iconPrefix = '👑 ';
                 }
 
-                // 如果是庄家，显示连庄数
-                const bankerInfo = isBanker ? ` (${round.bankerConsecutiveWins}连庄)` : '';
-
+                // 玩家名称行（不包含连庄数）
                 scoresHtml += `
                     <div class="history-player-column ${isWinner ? 'winner' : ''} ${isBanker ? 'banker' : ''}">
-                        <div class="history-player-name">${iconPrefix}${playerAfter.name}${bankerInfo}</div>
+                        <div class="history-player-name">${iconPrefix}${playerAfter.name}</div>
                         <div class="history-player-score">
                             <span class="score-current">${playerAfter.score}</span>
                             <span class="score-change ${change && change.change >= 0 ? 'score-positive' : 'score-negative'}">(${changeText})</span>
                         </div>
+                        ${isBanker ? `<div class="history-player-info">${round.bankerConsecutiveWins}连庄</div>` : ''}
                     </div>
                 `;
             });
@@ -582,6 +581,7 @@ const UI = {
                             <span class="score-current">${playerAfter.score}</span>
                             <span class="score-change ${change && change.change >= 0 ? 'score-positive' : 'score-negative'}">(${changeText})</span>
                         </div>
+                        ${isBanker ? `<div class="history-player-info">${round.bankerConsecutiveWins}连庄</div>` : ''}
                     </div>
                 `;
             });
