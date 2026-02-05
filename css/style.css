@@ -474,7 +474,7 @@ h1, h2, h3 {
 }
 
 .history-player-column.winner .history-player-name {
-    color: #2980b9;
+    color: #333;
     font-weight: bold;
 }
 
