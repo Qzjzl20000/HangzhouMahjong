@@ -574,7 +574,43 @@ const UI = {
         this.elements.historyList.innerHTML = '';
     },
 
+    resetDice() {
+        // 重置骰子为问号状态
+        const dice1Faces = this.elements.dice1.querySelectorAll('.dice-face');
+        const dice2Faces = this.elements.dice2.querySelectorAll('.dice-face');
+        const dice1Question = this.elements.dice1.querySelector('.dice-question');
+        const dice2Question = this.elements.dice2.querySelector('.dice-question');
+
+        // 隐藏所有骰子面
+        dice1Faces.forEach(face => face.classList.remove('active'));
+        dice2Faces.forEach(face => face.classList.remove('active'));
+
+        // 显示问号
+        if (dice1Question) {
+            dice1Question.classList.remove('hidden');
+        }
+        if (dice2Question) {
+            dice2Question.classList.remove('hidden');
+        }
+
+        // 重置点数显示
+        this.elements.dice1Value.textContent = '?';
+        this.elements.dice2Value.textContent = '?';
+        this.elements.diceTotal.textContent = '?';
+    },
+
     updateDice(dice1, dice2, total) {
+        // 隐藏问号，显示骰子面
+        const dice1Question = this.elements.dice1.querySelector('.dice-question');
+        const dice2Question = this.elements.dice2.querySelector('.dice-question');
+
+        if (dice1Question) {
+            dice1Question.classList.add('hidden');
+        }
+        if (dice2Question) {
+            dice2Question.classList.add('hidden');
+        }
+
         const dice1Faces = this.elements.dice1.querySelectorAll('.dice-face');
         const dice2Faces = this.elements.dice2.querySelectorAll('.dice-face');
 
@@ -654,6 +690,7 @@ const App = {
 
         Game.initNewGame(playerNames, initialScore, firstBankerId);
         this.saveGame();
+        UI.resetDice(); // 重置骰子为问号状态
         this.showGameScreen();
     },
 
@@ -760,6 +797,7 @@ const App = {
     handleConfirmRestart() {
         Storage.clearGame();
         UI.clearHistory();
+        UI.resetDice();
         UI.showSetupScreen();
         UI.hideConfirmModal();
     },
