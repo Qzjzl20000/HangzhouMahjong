@@ -763,6 +763,8 @@ const App = {
 
         const gameState = Game.getState();
         const banker = Game.getCurrentBanker();
+        // 保存当前庄家的连庄数（在更新庄家状态之前）
+        const currentBankerConsecutiveWins = banker.consecutiveWins;
 
         // 保存变化前的玩家分数
         const playersBefore = gameState.players.map(p => ({
@@ -791,7 +793,7 @@ const App = {
             winTypeDescription: winType.description,
             bankerId: banker.id,
             bankerName: banker.name,
-            bankerConsecutiveWins: banker.consecutiveWins,
+            bankerConsecutiveWins: currentBankerConsecutiveWins,
             baseScore: 1,
             multiplier: Math.pow(2, this.currentScorePreview.bankerFan),
             scoreChanges: this.currentScorePreview.scoreChanges,
