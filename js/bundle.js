@@ -126,15 +126,22 @@ const ScoreCalculator = {
 
         const scoreChanges = [];
         const winner = players.find(p => p.id === parseInt(winnerId));
+        const isWinnerBanker = winner.role === 'banker';
 
         // 先计算胡家总得分
         let totalGain = 0;
         players.forEach(player => {
             if (player.id !== parseInt(winnerId)) {
-                if (player.role === 'banker') {
+                if (isWinnerBanker) {
+                    // 胡家是庄家，所有输家都支付bankerPayment（含连庄番数）
                     totalGain += bankerPayment;
                 } else {
-                    totalGain += playerPayment;
+                    // 胡家是闲家，庄家支付bankerPayment，其他闲家支付playerPayment
+                    if (player.role === 'banker') {
+                        totalGain += bankerPayment;
+                    } else {
+                        totalGain += playerPayment;
+                    }
                 }
             }
         });
@@ -149,7 +156,14 @@ const ScoreCalculator = {
                 });
             } else {
                 // 输家得分
-                let loss = (player.role === 'banker') ? -bankerPayment : -playerPayment;
+                let loss;
+                if (isWinnerBanker) {
+                    // 胡家是庄家，所有输家都支付bankerPayment
+                    loss = -bankerPayment;
+                } else {
+                    // 胡家是闲家，庄家支付bankerPayment，其他闲家支付playerPayment
+                    loss = (player.role === 'banker') ? -bankerPayment : -playerPayment;
+                }
                 scoreChanges.push({
                     playerId: player.id,
                     change: loss
