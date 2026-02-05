@@ -534,13 +534,9 @@ const UI = {
                 // 判断是否是庄家
                 const isBanker = round.bankerId === playerAfter.id;
 
-                // 生成图标前缀
+                // 生成图标前缀（只有庄家有👑，赢家用红色分数体现）
                 let iconPrefix = '';
-                if (isWinner && isBanker) {
-                    iconPrefix = '🎲👑 ';
-                } else if (isWinner) {
-                    iconPrefix = '🎲 ';
-                } else if (isBanker) {
+                if (isBanker) {
                     iconPrefix = '👑 ';
                 }
 
@@ -566,11 +562,7 @@ const UI = {
                 const isBanker = round.bankerId === playerAfter.id;
 
                 let iconPrefix = '';
-                if (isWinner && isBanker) {
-                    iconPrefix = '🎲👑 ';
-                } else if (isWinner) {
-                    iconPrefix = '🎲 ';
-                } else if (isBanker) {
+                if (isBanker) {
                     iconPrefix = '👑 ';
                 }
 
