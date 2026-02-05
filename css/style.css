@@ -198,9 +198,6 @@ h1, h2, h3 {
     justify-content: center;
     color: #667eea;
     font-weight: bold;
-    background: #f0f4ff;
-    border-radius: 8px;
-    border: 2px dashed #667eea;
 }
 
 .dice-question.hidden {
