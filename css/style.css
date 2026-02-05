@@ -373,10 +373,10 @@ h1, h2, h3 {
 
 .fan-badge {
     display: inline-block;
-    padding: 3px 10px;
+    padding: 2px 8px;
     border-radius: 6px;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 14px;
     color: #fff;
 }
 
@@ -428,24 +428,24 @@ h1, h2, h3 {
 
 /* 历史记录 */
 .history-fan-info {
-    padding: 8px 12px;
+    padding: 5px 10px;
     background: #f8f9fa;
     border-radius: 6px;
-    font-size: 13px;
+    font-size: 12px;
     color: #666;
     display: flex;
     align-items: center;
-    gap: 15px;
-    margin: 8px 0;
+    gap: 12px;
+    margin: 5px 0;
 }
 
 .history-win-type {
-    padding: 6px 12px;
+    padding: 4px 10px;
     background: #e8f4f8;
     border-radius: 6px;
-    font-size: 13px;
+    font-size: 12px;
     color: #2980b9;
-    margin: 8px 0;
+    margin: 4px 0;
     text-align: center;
 }
 
@@ -453,12 +453,12 @@ h1, h2, h3 {
 .history-scores-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    margin-top: 10px;
+    gap: 6px;
+    margin-top: 6px;
 }
 
 .history-player-column {
-    padding: 8px;
+    padding: 6px;
     background: #f9f9f9;
     border-radius: 6px;
     text-align: center;
@@ -467,16 +467,16 @@ h1, h2, h3 {
 .history-player-name {
     font-weight: 500;
     color: #333;
-    font-size: 13px;
-    margin-bottom: 4px;
+    font-size: 12px;
+    margin-bottom: 3px;
 }
 
 .history-player-score {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 3px;
-    font-size: 14px;
+    gap: 2px;
+    font-size: 13px;
 }
 
 /* 历史记录中的分数样式 */
@@ -514,13 +514,13 @@ h1, h2, h3 {
 
 #history-list {
     display: grid;
-    gap: 10px;
+    gap: 6px;
 }
 
 .history-item {
     background: #f8f9fa;
     border-radius: 8px;
-    padding: 15px;
+    padding: 10px 12px;
     border-left: 4px solid #667eea;
 }
 
@@ -528,18 +528,21 @@ h1, h2, h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
     font-weight: bold;
     color: #333;
+    font-size: 13px;
 }
 
 .history-item-winner {
     color: #667eea;
+    font-size: 13px;
 }
 
 .history-item-banker {
     color: #e67e22;
-    font-size: 14px;
+    font-size: 12px;
+    margin-bottom: 4px;
 }
 
 /* 操作区域 */
