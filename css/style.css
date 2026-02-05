@@ -414,12 +414,12 @@ h1, h2, h3 {
 }
 
 .history-item-score.positive {
-    color: #27ae60;
+    color: #e74c3c;
     font-weight: bold;
 }
 
 .history-item-score.negative {
-    color: #e74c3c;
+    color: #27ae60;
     font-weight: bold;
 }
 

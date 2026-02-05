@@ -460,15 +460,30 @@ const UI = {
         item.className = 'history-item';
 
         const date = new Date(round.timestamp);
-        const dateStr = `${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
+        const dateStr = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
         const winner = players.find(p => p.id === round.winnerId);
 
+        // 显示最新分数（变化后的分数）
         let scoresHtml = '';
-        round.scoreChanges.forEach(change => {
-            const player = players.find(p => p.id === change.playerId);
-            scoresHtml += `<span class="history-item-score ${change.change >= 0 ? 'positive' : 'negative'}">${player.name}: ${change.change >= 0 ? '+' : ''}${change.change}</span>`;
-        });
+        if (round.playersAfter) {
+            round.playersAfter.forEach(playerAfter => {
+                const change = round.scoreChanges.find(c => c.playerId === playerAfter.id);
+                scoresHtml += `<span class="history-item-score ${change && change.change >= 0 ? 'positive' : 'negative'}">${playerAfter.name}: ${playerAfter.score}</span>`;
+            });
+        } else {
+            // 兼容旧数据（没有playersAfter字段）
+            round.scoreChanges.forEach(change => {
+                const player = players.find(p => p.id === change.playerId);
+                scoresHtml += `<span class="history-item-score ${change.change >= 0 ? 'positive' : 'negative'}">${player.name}: ${change.change >= 0 ? '+' : ''}${change.change}</span>`;
+            });
+        }
 
         item.innerHTML = `
             <div class="history-item-header">
@@ -629,7 +644,13 @@ const App = {
             multiplier: Math.pow(2, this.currentScorePreview.bankerFan),
             scoreChanges: this.currentScorePreview.scoreChanges,
             fan: this.currentScorePreview.fan,
-            bankerFan: this.currentScorePreview.bankerFan
+            bankerFan: this.currentScorePreview.bankerFan,
+            // 保存变化后的玩家分数
+            playersAfter: gameState.players.map(p => ({
+                id: p.id,
+                name: p.name,
+                score: p.score
+            }))
         });
 
         UI.updatePlayerCards(gameState.players);
