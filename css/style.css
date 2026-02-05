@@ -229,67 +229,74 @@ h1, h2, h3 {
 /* 玩家状态卡片 */
 .players-section {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    margin-bottom: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 15px;
 }
 
 .player-card {
     background: #fff;
-    border-radius: 12px;
-    padding: 20px;
+    border-radius: 10px;
+    padding: 10px 6px;
     text-align: center;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.player-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    position: relative;
 }
 
 .player-card.banker {
     background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     color: #fff;
-    border: 3px solid #ffd700;
+    border: 2px solid #ffd700;
 }
 
 .player-card .player-name {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.player-card.banker .player-name {
+    padding-right: 20px;
+}
+
+.player-card.banker::before {
+    content: '👑';
+    position: absolute;
+    top: 6px;
+    right: 4px;
+    font-size: 12px;
 }
 
 .player-card .player-score {
-    font-size: 16px;
-    margin-bottom: 8px;
+    font-size: 12px;
+    margin-bottom: 4px;
 }
 
 .player-card .player-score .score {
     font-weight: bold;
-    font-size: 20px;
+    font-size: 18px;
 }
 
-.player-card .player-role {
-    font-size: 14px;
-    margin-bottom: 5px;
+.player-card .player-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
     opacity: 0.9;
 }
 
-.player-card .player-consecutive {
-    font-size: 13px;
-    margin-bottom: 5px;
-    opacity: 0.9;
+.player-card.banker .player-info {
+    color: #fff;
 }
 
-.player-card .player-banker-level {
-    font-size: 14px;
-    font-weight: bold;
-    color: #ffd700;
-}
-
-.player-card:not(.banker) .player-banker-level {
-    display: none;
+.player-card:not(.banker) .player-info {
+    color: #666;
 }
 
 /* 计分输入区域 */
@@ -599,7 +606,33 @@ h1, h2, h3 {
 /* 响应式设计 */
 @media (max-width: 768px) {
     .players-section {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(4, 1fr);
+        gap: 4px;
+    }
+
+    .player-card {
+        padding: 8px 4px;
+    }
+
+    .player-card .player-name {
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    .player-card.banker .player-name {
+        padding-right: 16px;
+    }
+
+    .player-card.banker::before {
+        font-size: 10px;
+    }
+
+    .player-card .player-score .score {
+        font-size: 16px;
+    }
+
+    .player-card .player-info {
+        font-size: 10px;
     }
 
     .dice-container {
@@ -638,7 +671,24 @@ h1, h2, h3 {
 
 @media (max-width: 480px) {
     .players-section {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 3px;
+    }
+
+    .player-card {
+        padding: 6px 3px;
+    }
+
+    .player-card .player-name {
+        font-size: 11px;
+    }
+
+    .player-card .player-score .score {
+        font-size: 14px;
+    }
+
+    .player-card .player-info {
+        font-size: 9px;
     }
 
     .player-input {

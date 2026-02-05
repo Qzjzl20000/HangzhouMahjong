@@ -398,17 +398,18 @@ const UI = {
     },
 
     updatePlayerCards(players) {
-        const bankerLevelNames = ['闲家', '一老庄', '二老庄', '三老庄'];
-
         players.forEach(player => {
             const card = this.elements.playerCards[player.id];
             card.querySelector('.player-name').textContent = player.name;
             card.querySelector('.player-score .score').textContent = player.score;
-            card.querySelector('.player-role').textContent = player.role === 'banker' ? '🎲 庄家' : '闲家';
-            card.querySelector('.player-consecutive span').textContent =
-                player.role === 'banker' ? `${player.consecutiveWins}次` : '--';
-            card.querySelector('.player-banker-level').textContent =
-                player.role === 'banker' ? bankerLevelNames[player.bankerLevel] : '';
+
+            // 显示连庄信息：庄家显示"X连庄"，闲家不显示
+            const consecutiveSpan = card.querySelector('.consecutive');
+            if (player.role === 'banker') {
+                consecutiveSpan.textContent = `${player.consecutiveWins}连庄`;
+            } else {
+                consecutiveSpan.textContent = '';
+            }
 
             if (player.role === 'banker') {
                 card.classList.add('banker');
