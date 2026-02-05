@@ -403,12 +403,12 @@ const UI = {
             card.querySelector('.player-name').textContent = player.name;
             card.querySelector('.player-score .score').textContent = player.score;
 
-            // 显示连庄信息：庄家显示"X连庄"，闲家不显示
+            // 显示连庄信息：庄家显示"X连庄"，闲家显示"闲家"
             const consecutiveSpan = card.querySelector('.consecutive');
             if (player.role === 'banker') {
                 consecutiveSpan.textContent = `${player.consecutiveWins}连庄`;
             } else {
-                consecutiveSpan.textContent = '';
+                consecutiveSpan.textContent = '闲家';
             }
 
             if (player.role === 'banker') {
