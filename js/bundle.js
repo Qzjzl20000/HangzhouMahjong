@@ -512,8 +512,8 @@ const UI = {
         // 番数信息
         const fanInfo = `
             <div class="history-fan-info">
-                胡牌番数：<span class="fan-badge fan-${round.fan}">${round.fan}番</span>
-                连庄番数：<span class="fan-badge fan-banker-${round.bankerFan}">${round.bankerFan}番</span>
+                <span class="fan-badge fan-${round.fan}">胡${round.fan}番</span>
+                <span class="fan-badge fan-banker-${round.bankerFan}">庄${round.bankerFan}番</span>
             </div>
         `;
 
