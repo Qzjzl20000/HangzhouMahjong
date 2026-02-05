@@ -1,0 +1,248 @@
+{
+  "winTypes": {
+    "基础番型": [
+      {
+        "id": "pinghu",
+        "name": "平胡",
+        "fan": 0,
+        "label": "自摸（含财神）",
+        "description": "胡牌牌型包含财神，最基本的胡牌方式"
+      },
+      {
+        "id": "wucai_pinghu",
+        "name": "无财平胡",
+        "fan": 1,
+        "label": "自摸（不含财神）",
+        "description": "胡牌牌型完全不包含财神"
+      },
+      {
+        "id": "baotou",
+        "name": "爆头",
+        "fan": 1,
+        "label": "财神+自摸任意单张",
+        "description": "财神搭配任意自摸单张成对"
+      },
+      {
+        "id": "gangkai",
+        "name": "杠开",
+        "fan": 1,
+        "label": "杠开（含财神）",
+        "description": "杠上开花自摸胡，胡牌牌型包含财神"
+      },
+      {
+        "id": "wucai_gangkai",
+        "name": "无财杠开",
+        "fan": 2,
+        "label": "杠开自摸胡（不含财神）",
+        "description": "杠上开花自摸胡，胡牌牌型不包含财神"
+      },
+      {
+        "id": "shuang_gangkai",
+        "name": "双杠开",
+        "fan": 2,
+        "label": "双杠开自摸胡",
+        "description": "开杠2次后杠上开花自摸胡"
+      },
+      {
+        "id": "san_gangkai",
+        "name": "三杠开",
+        "fan": 3,
+        "label": "三杠开自摸胡",
+        "description": "开杠3次后杠上开花自摸胡"
+      },
+      {
+        "id": "caipiao",
+        "name": "财飘",
+        "fan": 2,
+        "label": "单飘财神",
+        "description": "打出一张财神（财神作为单张打出）"
+      },
+      {
+        "id": "shuang_caipiao",
+        "name": "双财飘",
+        "fan": 3,
+        "label": "双飘财神",
+        "description": "打出两张财神（两张财神作为单张打出）"
+      },
+      {
+        "id": "san_caipiao",
+        "name": "三财飘",
+        "fan": 4,
+        "label": "三飘财神",
+        "description": "打出三张财神（三张财神作为单张打出）"
+      },
+      {
+        "id": "qidui",
+        "name": "七对",
+        "fan": 2,
+        "label": "七个对子（含财神）",
+        "description": "七个对子胡牌，包含财神"
+      },
+      {
+        "id": "wucai_qidui",
+        "name": "无财七对",
+        "fan": 3,
+        "label": "七个对子（不含财神）",
+        "description": "七个对子胡牌，不包含财神"
+      },
+      {
+        "id": "haohua_qidui",
+        "name": "豪华七对",
+        "fan": 4,
+        "label": "豪华七对（含财神）",
+        "description": "含杠七对，包含财神"
+      },
+      {
+        "id": "wucai_haoqi",
+        "name": "无财豪七",
+        "fan": 4,
+        "label": "豪华七对（不含财神）",
+        "description": "含杠七对，不包含财神"
+      },
+      {
+        "id": "shifeng",
+        "name": "十风",
+        "fan": 3,
+        "label": "连打十风（不含财神）",
+        "description": "东西南北中发六类中打10张，中间不能吃、碰、杠等操作。"
+      },
+      {
+        "id": "shifeng_youcai",
+        "name": "十风有财",
+        "fan": 4,
+        "label": "连打十风（含财神）",
+        "description": "东西南北中发白七类中打10张，中间不能吃、碰、杠等操作。"
+      }
+    ],
+    "叠加番型": [
+      {
+        "id": "gangbao",
+        "name": "杠爆",
+        "fan": 2,
+        "label": "杠开+爆头",
+        "description": "杠开(1) + 爆头(1) = 2番"
+      },
+      {
+        "id": "shuang_gangbao",
+        "name": "双杠爆",
+        "fan": 3,
+        "label": "双杠+爆头",
+        "description": "双杠开(2) + 爆头(1) = 3番"
+      },
+      {
+        "id": "san_gangbao",
+        "name": "三杠爆",
+        "fan": 4,
+        "label": "三杠+爆头",
+        "description": "三杠开(3) + 爆头(1) = 4番"
+      },
+      {
+        "id": "piaobao",
+        "name": "飘爆",
+        "fan": 3,
+        "label": "财飘+爆头",
+        "description": "财飘(2) + 爆头(1) = 3番"
+      },
+      {
+        "id": "shuang_piaobao",
+        "name": "双飘爆",
+        "fan": 4,
+        "label": "双财飘+爆头",
+        "description": "双财飘(3) + 爆头(1) = 4番"
+      },
+      {
+        "id": "san_piaobao",
+        "name": "三飘爆",
+        "fan": 4,
+        "label": "三财飘+爆头（4番封顶）",
+        "description": "三财飘(4) + 爆头(1) = 5番，4番封顶"
+      },
+      {
+        "id": "gangpiao",
+        "name": "杠飘",
+        "fan": 3,
+        "label": "杠开+财飘",
+        "description": "杠开(1) + 财飘(2) = 3番"
+      },
+      {
+        "id": "shuang_gangpiao",
+        "name": "双杠飘",
+        "fan": 4,
+        "label": "双杠+财飘",
+        "description": "双杠开(2) + 财飘(2) = 4番"
+      },
+      {
+        "id": "san_gangpiao",
+        "name": "三杠飘",
+        "fan": 4,
+        "label": "三杠+财飘（4番封顶）",
+        "description": "三杠开(3) + 财飘(2) = 5番，4番封顶"
+      },
+      {
+        "id": "piaogang",
+        "name": "飘杠",
+        "fan": 3,
+        "label": "财飘+杠开",
+        "description": "财飘(2) + 杠开(1) = 3番（同杠飘，顺序不同）"
+      },
+      {
+        "id": "shuang_piaogang",
+        "name": "双飘杠",
+        "fan": 4,
+        "label": "双财飘+杠开",
+        "description": "双财飘(3) + 杠开(1) = 4番"
+      },
+      {
+        "id": "san_piaogang",
+        "name": "三飘杠",
+        "fan": 4,
+        "label": "三财飘+杠开（4番封顶）",
+        "description": "三财飘(4) + 杠开(1) = 5番，4番封顶"
+      },
+      {
+        "id": "qidui_baotou",
+        "name": "七对爆头",
+        "fan": 3,
+        "label": "七对+爆头",
+        "description": "七对(2) + 爆头(1) = 3番"
+      },
+      {
+        "id": "qidui_caipiao",
+        "name": "七对财飘",
+        "fan": 4,
+        "label": "七对+飘财",
+        "description": "七对(2) + 财飘(2) = 4番"
+      },
+      {
+        "id": "haoqi_baotou",
+        "name": "豪七爆头",
+        "fan": 4,
+        "label": "豪华七对+爆头（4番封顶）",
+        "description": "豪华七对(4)已封顶，叠加爆头仍为4番"
+      },
+      {
+        "id": "haoqi_caipiao",
+        "name": "豪七财飘",
+        "fan": 4,
+        "label": "豪华七对+财飘（4番封顶）",
+        "description": "豪华七对(4)已封顶，叠加财飘仍为4番"
+      }
+    ]
+  },
+  "bankerLevels": [
+    { "level": 0, "name": "闲家", "fan": 0 },
+    { "level": 1, "name": "一老庄", "fan": 1 },
+    { "level": 2, "name": "二老庄", "fan": 2 },
+    { "level": 3, "name": "三老庄", "fan": 3 }
+  ],
+  "scoring": {
+    "maxFan": 4,
+    "maxBankerFan": 3,
+    "formula": "最终得分 = 2^胡牌番数 × 2^庄家番数",
+    "rules": [
+      "胡牌番数最大为4番",
+      "庄家番数最大为3番",
+      "闲家和闲家收取盈亏不翻倍，庄家番数只计算闲家与庄家的盈亏"
+    ]
+  }
+}
