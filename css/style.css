@@ -468,8 +468,8 @@ h1, h2, h3 {
 }
 
 .score-preview-column.winner-column {
-    background: #ffd1d1;
-    border: 1px solid #ef9a9a;
+    background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+    border: 1px solid #ffccd5;
 }
 
 .preview-player-name {
@@ -550,6 +550,11 @@ h1, h2, h3 {
     background: #f9f9f9;
     border-radius: 6px;
     text-align: center;
+}
+
+.history-player-column.winner {
+    background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+    border: 1px solid #ffccd5;
 }
 
 .history-player-name {
