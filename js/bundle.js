@@ -519,7 +519,7 @@ const UI = {
 
         // 胡牌信息：蓝色背景的胡牌型
         const winnerInfo = round.winTypeLabel ?
-            `<div class="history-winner-info">${round.winTypeLabel}</div>` : '';
+            `<div class="history-winner-info">${round.winTypeName}: ${round.winTypeLabel}</div>` : '';
 
         // 一行4个玩家的分数显示
         let scoresHtml = '<div class="history-scores-row">';
