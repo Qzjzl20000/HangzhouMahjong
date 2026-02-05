@@ -478,11 +478,8 @@ const UI = {
             playerName.textContent = player.name;
 
             const playerScore = document.createElement('div');
-            playerScore.className = 'preview-player-score';
-            playerScore.innerHTML = `
-                <span class="score-current">${player.score}</span>
-                <span class="score-change ${change.change >= 0 ? 'score-positive' : 'score-negative'}">(${change.change >= 0 ? '+' : ''}${change.change})</span>
-            `;
+            playerScore.className = `preview-player-score ${change.change >= 0 ? 'score-positive' : 'score-negative'}`;
+            playerScore.textContent = `${change.change >= 0 ? '+' : ''}${change.change}`;
 
             column.appendChild(playerName);
             column.appendChild(playerScore);

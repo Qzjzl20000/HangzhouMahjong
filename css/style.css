@@ -414,27 +414,15 @@ h1, h2, h3 {
 }
 
 .preview-player-score {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 4px;
-    font-size: 15px;
-}
-
-.score-current {
-    color: #333;
+    font-size: 16px;
     font-weight: bold;
 }
 
-.score-change {
-    font-weight: bold;
-}
-
-.score-positive {
+.preview-player-score.score-positive {
     color: #e74c3c;
 }
 
-.score-negative {
+.preview-player-score.score-negative {
     color: #27ae60;
 }
 
@@ -489,6 +477,24 @@ h1, h2, h3 {
     align-items: center;
     gap: 3px;
     font-size: 14px;
+}
+
+/* 历史记录中的分数样式 */
+.score-current {
+    color: #333;
+    font-weight: bold;
+}
+
+.score-change {
+    font-weight: bold;
+}
+
+.score-positive {
+    color: #e74c3c;
+}
+
+.score-negative {
+    color: #27ae60;
 }
 
 /* 历史记录瀑布流 */
