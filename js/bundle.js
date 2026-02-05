@@ -450,23 +450,32 @@ const UI = {
         `;
         this.elements.scorePreviewContent.appendChild(infoItem);
 
-        scoreChanges.forEach(change => {
-            const item = document.createElement('div');
-            item.className = 'score-preview-item';
+        // 一行4个玩家的分数显示
+        const scoresRow = document.createElement('div');
+        scoresRow.className = 'score-preview-row';
 
+        scoreChanges.forEach(change => {
             const player = players.find(p => p.id === change.playerId);
+            const column = document.createElement('div');
+            column.className = 'score-preview-column';
+
             const playerName = document.createElement('div');
-            playerName.className = 'player-name';
+            playerName.className = 'preview-player-name';
             playerName.textContent = player.name;
 
             const playerScore = document.createElement('div');
-            playerScore.className = `player-score ${change.change >= 0 ? 'positive' : 'negative'}`;
-            playerScore.textContent = `${change.change >= 0 ? '+' : ''}${change.change} 分`;
+            playerScore.className = 'preview-player-score';
+            playerScore.innerHTML = `
+                <span class="score-current">${player.score}</span>
+                <span class="score-change ${change.change >= 0 ? 'score-positive' : 'score-negative'}">(${change.change >= 0 ? '+' : ''}${change.change})</span>
+            `;
 
-            item.appendChild(playerName);
-            item.appendChild(playerScore);
-            this.elements.scorePreviewContent.appendChild(item);
+            column.appendChild(playerName);
+            column.appendChild(playerScore);
+            scoresRow.appendChild(column);
         });
+
+        this.elements.scorePreviewContent.appendChild(scoresRow);
     },
 
     clearScorePreview() {
@@ -488,35 +497,61 @@ const UI = {
 
         const winner = players.find(p => p.id === round.winnerId);
 
-        // 显示分数变化：新分数（旧分数 ± 变化）
-        let scoresHtml = '';
+        // 番数信息
+        const fanInfo = `
+            <div class="history-fan-info">
+                胡牌番数：<span class="fan-badge fan-${round.fan}">${round.fan}番</span>
+                连庄番数：<span class="fan-badge fan-banker-${round.bankerFan}">${round.bankerFan}番</span>
+            </div>
+        `;
+
+        // 胡牌类型详细信息
+        const winTypeDetail = round.winTypeLabel ?
+            `<div class="history-win-type">${round.winTypeLabel}</div>` : '';
+
+        // 一行4个玩家的分数显示
+        let scoresHtml = '<div class="history-scores-row">';
         if (round.playersAfter && round.playersBefore) {
             round.playersAfter.forEach(playerAfter => {
                 const playerBefore = round.playersBefore.find(p => p.id === playerAfter.id);
                 const change = round.scoreChanges.find(c => c.playerId === playerAfter.id);
                 const changeText = change ? (change.change >= 0 ? `+${change.change}` : `${change.change}`) : '0';
-                scoresHtml += `<span class="history-item-score ${change && change.change >= 0 ? 'positive' : 'negative'}">${playerAfter.name}: ${playerAfter.score} (${playerBefore.score}${changeText})</span>`;
+                scoresHtml += `
+                    <div class="history-player-column">
+                        <div class="history-player-name">${playerAfter.name}</div>
+                        <div class="history-player-score">
+                            <span class="score-current">${playerAfter.score}</span>
+                            <span class="score-change ${change && change.change >= 0 ? 'score-positive' : 'score-negative'}">(${changeText})</span>
+                        </div>
+                    </div>
+                `;
             });
         } else if (round.playersAfter) {
-            // 兼容旧数据（有playersAfter但没有playersBefore）
+            // 兼容旧数据
             round.playersAfter.forEach(playerAfter => {
                 const change = round.scoreChanges.find(c => c.playerId === playerAfter.id);
-                scoresHtml += `<span class="history-item-score ${change && change.change >= 0 ? 'positive' : 'negative'}">${playerAfter.name}: ${playerAfter.score}</span>`;
-            });
-        } else {
-            // 兼容更旧的数据（没有playersAfter字段）
-            round.scoreChanges.forEach(change => {
-                const player = players.find(p => p.id === change.playerId);
-                scoresHtml += `<span class="history-item-score ${change.change >= 0 ? 'positive' : 'negative'}">${player.name}: ${change.change >= 0 ? '+' : ''}${change.change}</span>`;
+                const changeText = change ? (change.change >= 0 ? `+${change.change}` : `${change.change}`) : '0';
+                scoresHtml += `
+                    <div class="history-player-column">
+                        <div class="history-player-name">${playerAfter.name}</div>
+                        <div class="history-player-score">
+                            <span class="score-current">${playerAfter.score}</span>
+                            <span class="score-change ${change && change.change >= 0 ? 'score-positive' : 'score-negative'}">(${changeText})</span>
+                        </div>
+                    </div>
+                `;
             });
         }
+        scoresHtml += '</div>';
 
         item.innerHTML = `
             <div class="history-item-header">
                 <span>第 ${round.roundId} 局 - ${dateStr}</span>
             </div>
             <div class="history-item-winner">胡家: ${winner.name} (${round.winTypeName})</div>
-            <div class="history-item-scores">${scoresHtml}</div>
+            ${fanInfo}
+            ${winTypeDetail}
+            ${scoresHtml}
         `;
 
         this.elements.historyList.insertBefore(item, this.elements.historyList.firstChild);
@@ -672,6 +707,8 @@ const App = {
             winnerId: this.currentScorePreview.winnerId,
             winTypeId: this.currentScorePreview.winTypeId,
             winTypeName: winType.name,
+            winTypeLabel: winType.label,
+            winTypeDescription: winType.description,
             bankerId: banker.id,
             baseScore: 1,
             multiplier: Math.pow(2, this.currentScorePreview.bankerFan),

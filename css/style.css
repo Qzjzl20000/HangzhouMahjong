@@ -355,17 +355,15 @@ h1, h2, h3 {
 }
 
 #score-preview-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .score-preview-info {
-    grid-column: 1 / -1;
     padding: 10px 15px;
     background: #f8f9fa;
     border-radius: 8px;
-    margin-bottom: 12px;
     font-size: 14px;
     color: #666;
     display: flex;
@@ -393,32 +391,104 @@ h1, h2, h3 {
 .fan-badge.fan-banker-2 { background: #d35400; }
 .fan-badge.fan-banker-3 { background: #ba4a00; }
 
-.score-preview-item {
-    padding: 12px;
+/* 预计盈亏 - 一行4个玩家 */
+.score-preview-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.score-preview-column {
+    padding: 10px;
     background: #fff;
     border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    text-align: center;
     border: 1px solid #eee;
 }
 
-.score-preview-item .player-name {
+.preview-player-name {
     font-weight: 500;
     color: #333;
+    font-size: 14px;
+    margin-bottom: 6px;
 }
 
-.score-preview-item .player-score {
+.preview-player-score {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    font-size: 15px;
+}
+
+.score-current {
+    color: #333;
     font-weight: bold;
-    font-size: 16px;
 }
 
-.score-preview-item .player-score.positive {
+.score-change {
+    font-weight: bold;
+}
+
+.score-positive {
     color: #e74c3c;
 }
 
-.score-preview-item .player-score.negative {
+.score-negative {
     color: #27ae60;
+}
+
+/* 历史记录 */
+.history-fan-info {
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 8px 0;
+}
+
+.history-win-type {
+    padding: 6px 12px;
+    background: #e8f4f8;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #2980b9;
+    margin: 8px 0;
+    text-align: center;
+}
+
+/* 历史记录 - 一行4个玩家 */
+.history-scores-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.history-player-column {
+    padding: 8px;
+    background: #f9f9f9;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.history-player-name {
+    font-weight: 500;
+    color: #333;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.history-player-score {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    font-size: 14px;
 }
 
 /* 历史记录瀑布流 */
@@ -459,30 +529,6 @@ h1, h2, h3 {
 
 .history-item-winner {
     color: #667eea;
-}
-
-.history-item-scores {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 10px;
-    font-size: 14px;
-}
-
-.history-item-score {
-    padding: 5px 10px;
-    border-radius: 4px;
-    background: #fff;
-}
-
-.history-item-score.positive {
-    color: #e74c3c;
-    font-weight: bold;
-}
-
-.history-item-score.negative {
-    color: #27ae60;
-    font-weight: bold;
 }
 
 /* 操作区域 */
@@ -555,8 +601,24 @@ h1, h2, h3 {
         font-size: 48px;
     }
 
-    #score-preview-content {
-        grid-template-columns: 1fr 1fr;
+    .score-preview-row,
+    .history-scores-row {
+        gap: 6px;
+    }
+
+    .score-preview-column,
+    .history-player-column {
+        padding: 8px 6px;
+    }
+
+    .preview-player-name,
+    .history-player-name {
+        font-size: 12px;
+    }
+
+    .preview-player-score,
+    .history-player-score {
+        font-size: 13px;
     }
 }
 
@@ -572,5 +634,17 @@ h1, h2, h3 {
 
     .player-input input[type="text"] {
         width: 100%;
+    }
+
+    .score-preview-info,
+    .history-fan-info {
+        font-size: 12px;
+        gap: 10px;
+        padding: 8px 10px;
+    }
+
+    .fan-badge {
+        font-size: 13px;
+        padding: 2px 8px;
     }
 }
