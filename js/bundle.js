@@ -200,8 +200,8 @@ const Game = {
             score: initialScore,
             initialScore,
             role: id === parseInt(firstBankerId) ? 'banker' : 'player',
-            consecutiveWins: id === parseInt(firstBankerId) ? 0 : 0,
-            bankerLevel: id === parseInt(firstBankerId) ? 0 : 0
+            consecutiveWins: id === parseInt(firstBankerId) ? 1 : 0,
+            bankerLevel: id === parseInt(firstBankerId) ? 1 : 0
         }));
 
         this.state = {
