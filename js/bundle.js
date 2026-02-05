@@ -236,10 +236,11 @@ const Game = {
     getNextBanker(winnerId) {
         const currentBanker = this.getCurrentBanker();
         const currentBankerId = currentBanker.id;
-        const currentConsecutiveWins = currentBanker.consecutiveWins;
 
+        // 谁赢谁做庄
         if (currentBankerId === winnerId) {
-            const newConsecutiveWins = currentConsecutiveWins + 1;
+            // 庄家继续赢，连庄数+1
+            const newConsecutiveWins = currentBanker.consecutiveWins + 1;
             const newBankerLevel = Math.min(newConsecutiveWins, 3);
             return {
                 bankerId: currentBankerId,
@@ -247,10 +248,11 @@ const Game = {
                 bankerLevel: newBankerLevel
             };
         } else {
+            // 闲家赢，成为新庄家，从1连庄/一老庄开始
             return {
-                bankerId: (currentBankerId + 1) % 4,
-                consecutiveWins: 0,
-                bankerLevel: 0
+                bankerId: winnerId,
+                consecutiveWins: 1,
+                bankerLevel: 1
             };
         }
     },
