@@ -517,9 +517,9 @@ const UI = {
             </div>
         `;
 
-        // 胡牌类型详细信息
-        const winTypeDetail = round.winTypeLabel ?
-            `<div class="history-win-type">${round.winTypeLabel}</div>` : '';
+        // 胡牌信息：蓝色背景的胡牌型
+        const winnerInfo = round.winTypeLabel ?
+            `<div class="history-winner-info">${round.winTypeLabel}</div>` : '';
 
         // 一行4个玩家的分数显示
         let scoresHtml = '<div class="history-scores-row">';
@@ -528,9 +528,28 @@ const UI = {
                 const playerBefore = round.playersBefore.find(p => p.id === playerAfter.id);
                 const change = round.scoreChanges.find(c => c.playerId === playerAfter.id);
                 const changeText = change ? (change.change >= 0 ? `+${change.change}` : `${change.change}`) : '0';
+
+                // 判断是否是胡家
+                const isWinner = playerAfter.id === round.winnerId;
+                // 判断是否是庄家
+                const isBanker = round.bankerId === playerAfter.id;
+
+                // 生成图标前缀
+                let iconPrefix = '';
+                if (isWinner && isBanker) {
+                    iconPrefix = '🎲👑 ';
+                } else if (isWinner) {
+                    iconPrefix = '🎲 ';
+                } else if (isBanker) {
+                    iconPrefix = '👑 ';
+                }
+
+                // 如果是庄家，显示连庄数
+                const bankerInfo = isBanker ? ` (${round.bankerConsecutiveWins}连庄)` : '';
+
                 scoresHtml += `
-                    <div class="history-player-column">
-                        <div class="history-player-name">${playerAfter.name}</div>
+                    <div class="history-player-column ${isWinner ? 'winner' : ''} ${isBanker ? 'banker' : ''}">
+                        <div class="history-player-name">${iconPrefix}${playerAfter.name}${bankerInfo}</div>
                         <div class="history-player-score">
                             <span class="score-current">${playerAfter.score}</span>
                             <span class="score-change ${change && change.change >= 0 ? 'score-positive' : 'score-negative'}">(${changeText})</span>
@@ -543,9 +562,22 @@ const UI = {
             round.playersAfter.forEach(playerAfter => {
                 const change = round.scoreChanges.find(c => c.playerId === playerAfter.id);
                 const changeText = change ? (change.change >= 0 ? `+${change.change}` : `${change.change}`) : '0';
+
+                const isWinner = playerAfter.id === round.winnerId;
+                const isBanker = round.bankerId === playerAfter.id;
+
+                let iconPrefix = '';
+                if (isWinner && isBanker) {
+                    iconPrefix = '🎲👑 ';
+                } else if (isWinner) {
+                    iconPrefix = '🎲 ';
+                } else if (isBanker) {
+                    iconPrefix = '👑 ';
+                }
+
                 scoresHtml += `
-                    <div class="history-player-column">
-                        <div class="history-player-name">${playerAfter.name}</div>
+                    <div class="history-player-column ${isWinner ? 'winner' : ''} ${isBanker ? 'banker' : ''}">
+                        <div class="history-player-name">${iconPrefix}${playerAfter.name}</div>
                         <div class="history-player-score">
                             <span class="score-current">${playerAfter.score}</span>
                             <span class="score-change ${change && change.change >= 0 ? 'score-positive' : 'score-negative'}">(${changeText})</span>
@@ -560,10 +592,8 @@ const UI = {
             <div class="history-item-header">
                 <span>第 ${round.roundId} 局 - ${dateStr}</span>
             </div>
-            <div class="history-item-winner">胡家: ${winner.name} (${round.winTypeName})</div>
-            ${round.bankerName ? `<div class="history-item-banker">庄家: ${round.bankerName} (${round.bankerConsecutiveWins}连庄)</div>` : ''}
+            ${winnerInfo}
             ${fanInfo}
-            ${winTypeDetail}
             ${scoresHtml}
         `;
 
