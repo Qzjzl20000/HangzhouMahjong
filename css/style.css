@@ -78,6 +78,8 @@ h1, h2, h3 {
     color: #333;
     text-shadow: none;
     margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 700;
 }
 
 .player-inputs {
@@ -96,22 +98,43 @@ h1, h2, h3 {
     border-radius: 8px;
 }
 
+.player-header {
+    margin-bottom: 5px;
+}
+
+.player-header label {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin: 0;
+}
+
 .player-config-row {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.banker-consecutive-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
 .player-name-input {
     flex: 1;
+    min-width: 150px;
     padding: 10px 12px;
     border: 2px solid #ddd;
     border-radius: 8px;
-    font-size: 15px;
+    font-size: 14px;
+    height: 40px;
     transition: border-color 0.3s ease;
 }
 
-.player-input label {
+.player-input > label {
     min-width: 60px;
     color: #555;
 }
@@ -120,15 +143,12 @@ h1, h2, h3 {
     color: #666;
     font-size: 14px;
     margin-right: 4px;
-    min-height: 20px;
-    display: inline-flex;
-    align-items: center;
 }
 
 .score-consecutive-group {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 15px;
 }
 
 .player-input input[type="text"] {
@@ -136,7 +156,7 @@ h1, h2, h3 {
     padding: 8px 12px;
     border: 2px solid #ddd;
     border-radius: 8px;
-    font-size: 15px;
+    font-size: 14px;
     transition: border-color 0.3s ease;
 }
 
@@ -150,9 +170,10 @@ h1, h2, h3 {
     padding: 8px 10px;
     border: 2px solid #ddd;
     border-radius: 8px;
-    font-size: 15px;
+    font-size: 14px;
     transition: border-color 0.3s ease;
     text-align: center;
+    height: 40px;
 }
 
 .player-score-input:focus,
@@ -176,7 +197,7 @@ h1, h2, h3 {
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
-    align-self: flex-start;
+    height: 40px;
 }
 
 .banker-toggle-btn:hover {
@@ -784,25 +805,36 @@ h1, h2, h3 {
         padding: 18px;
     }
 
-    .player-name-input {
-        padding: 14px 16px;
+    .player-header label {
         font-size: 16px;
-        min-height: 48px;
+    }
+
+    .player-config-row {
+        gap: 10px;
+    }
+
+    .banker-consecutive-group {
+        gap: 10px;
+    }
+
+    .player-name-input {
+        padding: 12px 14px;
+        font-size: 15px;
+        height: 44px;
     }
 
     .player-score-input,
     .player-consecutive-input {
-        width: 80px;
+        width: 75px;
         padding: 10px 12px;
-        font-size: 16px;
-        min-height: 44px;
+        font-size: 15px;
+        height: 44px;
     }
 
     .banker-toggle-btn {
-        padding: 10px 20px;
-        font-size: 15px;
-        min-height: 44px;
-        width: 100%;
+        padding: 10px 16px;
+        font-size: 14px;
+        height: 44px;
     }
 
     .players-section {
