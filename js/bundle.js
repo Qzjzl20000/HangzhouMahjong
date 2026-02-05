@@ -363,6 +363,7 @@ const UI = {
             setupScreen: document.getElementById('setup-screen'),
             gameScreen: document.getElementById('game-screen'),
             confirmModal: document.getElementById('confirm-modal'),
+            bankerToggleBtns: document.querySelectorAll('.banker-toggle-btn'),
             playerNames: [
                 document.getElementById('player0-name'),
                 document.getElementById('player1-name'),
@@ -688,7 +689,8 @@ const UI = {
 
     getSetupValues() {
         const playerNames = this.elements.playerNames.map(input => input.value || `玩家${parseInt(input.id.slice(-1)) + 1}`);
-        const firstBankerId = document.querySelector('input[name="first-banker"]:checked').value;
+        const activeBankerBtn = document.querySelector('.banker-toggle-btn.active');
+        const firstBankerId = activeBankerBtn ? parseInt(activeBankerBtn.dataset.player) : 0;
         const playerScores = this.elements.playerScoreInputs.map(input => parseInt(input.value) || 100);
         const playerConsecutives = this.elements.playerConsecutiveInputs.map(input => parseInt(input.value) || 0);
 
@@ -716,21 +718,32 @@ const App = {
         UI.elements.winnerSelect.addEventListener('change', () => this.handlePlayerSelect());
         UI.elements.winTypeSelect.addEventListener('change', () => this.handlePlayerSelect());
 
-        // 绑定庄家选择事件，自动调整连庄数
-        const bankerRadios = document.querySelectorAll('input[name="first-banker"]');
-        bankerRadios.forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                const selectedPlayerId = parseInt(e.target.value);
+        // 绑定庄家切换按钮事件
+        UI.elements.bankerToggleBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const clickedPlayerId = parseInt(e.target.dataset.player);
+                const isActive = e.target.classList.contains('active');
 
-                // 遍历所有玩家
+                if (isActive) {
+                    // 如果已经激活，点击则不做任何操作（必须有一个庄家）
+                    return;
+                }
+
+                // 移除所有按钮的active类
+                UI.elements.bankerToggleBtns.forEach(b => b.classList.remove('active'));
+
+                // 激活点击的按钮
+                e.target.classList.add('active');
+
+                // 更新连庄输入框状态
                 UI.elements.playerConsecutiveInputs.forEach((input, index) => {
-                    if (index === selectedPlayerId) {
-                        // 被选中的庄家，如果连庄数为0，自动设置为1
+                    if (index === clickedPlayerId) {
+                        input.disabled = false;
                         if (parseInt(input.value) === 0) {
                             input.value = 1;
                         }
                     } else {
-                        // 其他玩家，连庄数自动设置为0
+                        input.disabled = true;
                         input.value = 0;
                     }
                 });
