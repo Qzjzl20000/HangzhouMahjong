@@ -360,6 +360,33 @@ h1, h2, h3 {
     gap: 10px;
 }
 
+.score-preview-info {
+    grid-column: 1 / -1;
+    padding: 12px;
+    background: #f0f4ff;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #d0d7ff;
+}
+
+.preview-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+}
+
+.info-label {
+    color: #666;
+    font-size: 14px;
+}
+
+.info-value {
+    color: #667eea;
+    font-weight: bold;
+    font-size: 15px;
+}
+
 .score-preview-item {
     padding: 10px;
     background: #fff;

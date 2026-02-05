@@ -438,8 +438,27 @@ const UI = {
         }
     },
 
-    updateScorePreview(scoreChanges, players) {
+    updateScorePreview(scoreChanges, players, fan, bankerFan) {
         this.elements.scorePreviewContent.innerHTML = '';
+
+        // 添加牌型番数和连庄番数说明
+        const infoItem = document.createElement('div');
+        infoItem.className = 'score-preview-info';
+        infoItem.innerHTML = `
+            <div class="preview-info-row">
+                <span class="info-label">本局牌型:</span>
+                <span class="info-value">${fan}番</span>
+            </div>
+            <div class="preview-info-row">
+                <span class="info-label">连庄番数:</span>
+                <span class="info-value">${bankerFan}番</span>
+            </div>
+            <div class="preview-info-row">
+                <span class="info-label">计分公式:</span>
+                <span class="info-value">2^${fan} × 2^${bankerFan}</span>
+            </div>
+        `;
+        this.elements.scorePreviewContent.appendChild(infoItem);
 
         scoreChanges.forEach(change => {
             const player = players.find(p => p.id === change.playerId);
@@ -611,7 +630,7 @@ const App = {
                 banker.bankerLevel,
                 gameState.players
             );
-            UI.updateScorePreview(result.scoreChanges, gameState.players);
+            UI.updateScorePreview(result.scoreChanges, gameState.players, result.fan, result.bankerFan);
             this.currentScorePreview = {
                 winnerId: parseInt(winnerId),
                 winTypeId,
