@@ -470,15 +470,23 @@ const UI = {
 
         const winner = players.find(p => p.id === round.winnerId);
 
-        // 显示最新分数（变化后的分数）
+        // 显示分数变化：新分数（旧分数 ± 变化）
         let scoresHtml = '';
-        if (round.playersAfter) {
+        if (round.playersAfter && round.playersBefore) {
+            round.playersAfter.forEach(playerAfter => {
+                const playerBefore = round.playersBefore.find(p => p.id === playerAfter.id);
+                const change = round.scoreChanges.find(c => c.playerId === playerAfter.id);
+                const changeText = change ? (change.change >= 0 ? `+${change.change}` : `${change.change}`) : '0';
+                scoresHtml += `<span class="history-item-score ${change && change.change >= 0 ? 'positive' : 'negative'}">${playerAfter.name}: ${playerAfter.score} (${playerBefore.score}${changeText})</span>`;
+            });
+        } else if (round.playersAfter) {
+            // 兼容旧数据（有playersAfter但没有playersBefore）
             round.playersAfter.forEach(playerAfter => {
                 const change = round.scoreChanges.find(c => c.playerId === playerAfter.id);
                 scoresHtml += `<span class="history-item-score ${change && change.change >= 0 ? 'positive' : 'negative'}">${playerAfter.name}: ${playerAfter.score}</span>`;
             });
         } else {
-            // 兼容旧数据（没有playersAfter字段）
+            // 兼容更旧的数据（没有playersAfter字段）
             round.scoreChanges.forEach(change => {
                 const player = players.find(p => p.id === change.playerId);
                 scoresHtml += `<span class="history-item-score ${change.change >= 0 ? 'positive' : 'negative'}">${player.name}: ${change.change >= 0 ? '+' : ''}${change.change}</span>`;
@@ -623,6 +631,13 @@ const App = {
         const gameState = Game.getState();
         const banker = Game.getCurrentBanker();
 
+        // 保存变化前的玩家分数
+        const playersBefore = gameState.players.map(p => ({
+            id: p.id,
+            name: p.name,
+            score: p.score
+        }));
+
         // 更新玩家积分
         this.currentScorePreview.scoreChanges.forEach(change => {
             const player = Game.getPlayer(change.playerId);
@@ -645,7 +660,8 @@ const App = {
             scoreChanges: this.currentScorePreview.scoreChanges,
             fan: this.currentScorePreview.fan,
             bankerFan: this.currentScorePreview.bankerFan,
-            // 保存变化后的玩家分数
+            // 保存变化前后的玩家分数
+            playersBefore,
             playersAfter: gameState.players.map(p => ({
                 id: p.id,
                 name: p.name,
