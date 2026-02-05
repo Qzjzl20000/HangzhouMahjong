@@ -208,16 +208,20 @@ const ScoreCalculator = {
 const Game = {
     state: null,
 
-    initNewGame(playerNames, initialScore, firstBankerId) {
-        const players = playerNames.map((name, id) => ({
-            id,
-            name,
-            score: initialScore,
-            initialScore,
-            role: id === parseInt(firstBankerId) ? 'banker' : 'player',
-            consecutiveWins: id === parseInt(firstBankerId) ? 1 : 0,
-            bankerLevel: id === parseInt(firstBankerId) ? 1 : 0
-        }));
+    initNewGame(playerNames, playerScores, firstBankerId, playerConsecutives) {
+        const players = playerNames.map((name, id) => {
+            const consecutiveWins = playerConsecutives[id] || 0;
+            const isBanker = id === parseInt(firstBankerId);
+            return {
+                id,
+                name,
+                score: playerScores[id],
+                initialScore: playerScores[id],
+                role: isBanker ? 'banker' : 'player',
+                consecutiveWins: isBanker ? (consecutiveWins > 0 ? consecutiveWins : 1) : 0,
+                bankerLevel: isBanker ? (consecutiveWins > 0 ? consecutiveWins : 1) : 0
+            };
+        });
 
         this.state = {
             gameId: this.generateUUID(),
@@ -356,6 +360,19 @@ const UI = {
                 document.getElementById('player3-name')
             ],
             initialScore: document.getElementById('initial-score'),
+            applyScoreBtn: document.getElementById('apply-score-btn'),
+            playerScoreInputs: [
+                document.getElementById('player0-score'),
+                document.getElementById('player1-score'),
+                document.getElementById('player2-score'),
+                document.getElementById('player3-score')
+            ],
+            playerConsecutiveInputs: [
+                document.getElementById('player0-consecutive'),
+                document.getElementById('player1-consecutive'),
+                document.getElementById('player2-consecutive'),
+                document.getElementById('player3-consecutive')
+            ],
             startGameBtn: document.getElementById('start-game-btn'),
             playerCards: [
                 document.getElementById('player0-card'),
@@ -662,9 +679,10 @@ const UI = {
     getSetupValues() {
         const playerNames = this.elements.playerNames.map(input => input.value || `玩家${parseInt(input.id.slice(-1)) + 1}`);
         const firstBankerId = document.querySelector('input[name="first-banker"]:checked').value;
-        const initialScore = parseInt(this.elements.initialScore.value) || 100;
+        const playerScores = this.elements.playerScoreInputs.map(input => parseInt(input.value) || 100);
+        const playerConsecutives = this.elements.playerConsecutiveInputs.map(input => parseInt(input.value) || 0);
 
-        return { playerNames, firstBankerId, initialScore };
+        return { playerNames, firstBankerId, playerScores, playerConsecutives };
     }
 };
 
@@ -679,6 +697,7 @@ const App = {
 
         // 绑定事件
         UI.elements.startGameBtn.addEventListener('click', () => this.handleStartGame());
+        UI.elements.applyScoreBtn.addEventListener('click', () => this.handleApplyScore());
         UI.elements.confirmScoreBtn.addEventListener('click', () => this.handleConfirmScore());
         UI.elements.rollDiceBtn.addEventListener('click', () => this.handleRollDice());
         UI.elements.restartBtn.addEventListener('click', () => UI.showConfirmModal());
@@ -701,20 +720,27 @@ const App = {
         }
     },
 
+    handleApplyScore() {
+        const score = parseInt(UI.elements.initialScore.value) || 100;
+        UI.elements.playerScoreInputs.forEach(input => {
+            input.value = score;
+        });
+    },
+
     handleStartGame() {
-        const { playerNames, firstBankerId, initialScore } = UI.getSetupValues();
+        const { playerNames, firstBankerId, playerScores, playerConsecutives } = UI.getSetupValues();
 
         if (playerNames.some(name => !name.trim())) {
             alert('请填写所有玩家名称');
             return;
         }
 
-        if (initialScore < 0) {
-            alert('初始积分必须大于等于0');
+        if (playerScores.some(score => score < 0)) {
+            alert('积分必须大于等于0');
             return;
         }
 
-        Game.initNewGame(playerNames, initialScore, firstBankerId);
+        Game.initNewGame(playerNames, playerScores, firstBankerId, playerConsecutives);
         this.saveGame();
         UI.resetDice(); // 重置骰子为问号状态
         this.showGameScreen();

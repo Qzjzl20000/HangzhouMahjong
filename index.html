@@ -24,6 +24,23 @@
                   placeholder="输入名称"
                   value="玩家1"
                 />
+                <input
+                  type="number"
+                  id="player0-score"
+                  class="player-score-input"
+                  placeholder="积分"
+                  value="100"
+                  min="0"
+                />
+                <input
+                  type="number"
+                  id="player0-consecutive"
+                  class="player-consecutive-input"
+                  placeholder="连庄"
+                  value="0"
+                  min="0"
+                  max="3"
+                />
                 <label class="radio-label"
                   ><input type="radio" name="first-banker" value="0" checked />
                   首庄</label
@@ -36,6 +53,23 @@
                   id="player1-name"
                   placeholder="输入名称"
                   value="玩家2"
+                />
+                <input
+                  type="number"
+                  id="player1-score"
+                  class="player-score-input"
+                  placeholder="积分"
+                  value="100"
+                  min="0"
+                />
+                <input
+                  type="number"
+                  id="player1-consecutive"
+                  class="player-consecutive-input"
+                  placeholder="连庄"
+                  value="0"
+                  min="0"
+                  max="3"
                 />
                 <label class="radio-label"
                   ><input type="radio" name="first-banker" value="1" />
@@ -50,6 +84,23 @@
                   placeholder="输入名称"
                   value="玩家3"
                 />
+                <input
+                  type="number"
+                  id="player2-score"
+                  class="player-score-input"
+                  placeholder="积分"
+                  value="100"
+                  min="0"
+                />
+                <input
+                  type="number"
+                  id="player2-consecutive"
+                  class="player-consecutive-input"
+                  placeholder="连庄"
+                  value="0"
+                  min="0"
+                  max="3"
+                />
                 <label class="radio-label"
                   ><input type="radio" name="first-banker" value="2" />
                   首庄</label
@@ -63,6 +114,23 @@
                   placeholder="输入名称"
                   value="玩家4"
                 />
+                <input
+                  type="number"
+                  id="player3-score"
+                  class="player-score-input"
+                  placeholder="积分"
+                  value="100"
+                  min="0"
+                />
+                <input
+                  type="number"
+                  id="player3-consecutive"
+                  class="player-consecutive-input"
+                  placeholder="连庄"
+                  value="0"
+                  min="0"
+                  max="3"
+                />
                 <label class="radio-label"
                   ><input type="radio" name="first-banker" value="3" />
                   首庄</label
@@ -71,9 +139,10 @@
             </div>
           </div>
           <div class="initial-score">
-            <label for="initial-score">初始积分:</label>
+            <label for="initial-score">统一设置积分:</label>
             <input type="number" id="initial-score" value="100" min="0" />
             <span>分</span>
+            <button id="apply-score-btn" class="btn btn-secondary">应用到全部</button>
           </div>
           <button id="start-game-btn" class="btn btn-primary">开始游戏</button>
         </div>
