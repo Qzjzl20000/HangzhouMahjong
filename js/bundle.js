@@ -115,30 +115,52 @@ const ScoreCalculator = {
         const fan = winType.fan;
         const bankerFan = bankerLevel;
 
-        // 计分公式: 最终得分 = 2^胡牌番数 × 2^庄家番数
-        const winnerScore = Math.pow(2, fan) * Math.pow(2, bankerFan);
+        // 基础分数 = 2^胡牌番数
+        const baseScore = Math.pow(2, fan);
+
+        // 庄家需支付的分数 = 基础分数 × 2^庄家番数
+        const bankerPayment = baseScore * Math.pow(2, bankerFan);
+
+        // 闲家需支付的分数 = 基础分数（庄家番数不影响闲家之间的结算）
+        const playerPayment = baseScore;
+
+        const scoreChanges = [];
+        const winner = players.find(p => p.id === parseInt(winnerId));
+
+        // 先计算胡家总得分
+        let totalGain = 0;
+        players.forEach(player => {
+            if (player.id !== parseInt(winnerId)) {
+                if (player.role === 'banker') {
+                    totalGain += bankerPayment;
+                } else {
+                    totalGain += playerPayment;
+                }
+            }
+        });
 
         // 计算各玩家积分变化
-        const scoreChanges = [];
-        const bankerId = players.find(p => p.role === 'banker').id;
-
         players.forEach(player => {
             if (player.id === parseInt(winnerId)) {
+                // 胡家得分
                 scoreChanges.push({
                     playerId: player.id,
-                    change: winnerScore
+                    change: totalGain
                 });
             } else {
-                let loserScore = -winnerScore / 3;
+                // 输家得分
+                let loss = (player.role === 'banker') ? -bankerPayment : -playerPayment;
                 scoreChanges.push({
                     playerId: player.id,
-                    change: Math.round(loserScore * 100) / 100
+                    change: loss
                 });
             }
         });
 
         return {
-            winnerScore,
+            baseScore,
+            bankerPayment,
+            playerPayment,
             scoreChanges,
             fan,
             bankerFan

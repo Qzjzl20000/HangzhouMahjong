@@ -27,40 +27,52 @@ export class ScoreCalculator {
         const fan = winType.fan;
         const bankerFan = bankerLevel;
 
-        // 根据计分公式: 最终得分 = 2^胡牌番数 × 2^庄家番数
-        const winnerScore = Math.pow(2, fan) * Math.pow(2, bankerFan);
+        // 基础分数 = 2^胡牌番数
+        const baseScore = Math.pow(2, fan);
+
+        // 庄家需支付的分数 = 基础分数 × 2^庄家番数
+        const bankerPayment = baseScore * Math.pow(2, bankerFan);
+
+        // 闲家需支付的分数 = 基础分数（庄家番数不影响闲家之间的结算）
+        const playerPayment = baseScore;
+
+        const scoreChanges = [];
+        const winner = players.find(p => p.id === parseInt(winnerId));
+
+        // 先计算胡家总得分
+        let totalGain = 0;
+        players.forEach(player => {
+            if (player.id !== parseInt(winnerId)) {
+                if (player.role === 'banker') {
+                    totalGain += bankerPayment;
+                } else {
+                    totalGain += playerPayment;
+                }
+            }
+        });
 
         // 计算各玩家积分变化
-        const scoreChanges = [];
-        const bankerId = players.find(p => p.role === 'banker').id;
-
         players.forEach(player => {
             if (player.id === parseInt(winnerId)) {
                 // 胡家得分
                 scoreChanges.push({
                     playerId: player.id,
-                    change: winnerScore
+                    change: totalGain
                 });
             } else {
-                // 闲家得分
-                // 庄家番数只计算闲家与庄家的盈亏
-                let loserScore = -winnerScore / 3;
-
-                // 如果当前玩家是庄家，需要考虑庄家番数
-                if (player.id === bankerId && bankerId !== parseInt(winnerId)) {
-                    // 庄家输给胡家，需要按庄家番数计算
-                    // 但这里简化处理，因为已经在winnerScore中包含了庄家番数
-                }
-
+                // 输家得分
+                let loss = (player.role === 'banker') ? -bankerPayment : -playerPayment;
                 scoreChanges.push({
                     playerId: player.id,
-                    change: Math.round(loserScore * 100) / 100 // 保留两位小数
+                    change: loss
                 });
             }
         });
 
         return {
-            winnerScore,
+            baseScore,
+            bankerPayment,
+            playerPayment,
             scoreChanges,
             fan,
             bankerFan
