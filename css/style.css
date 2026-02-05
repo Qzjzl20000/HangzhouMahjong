@@ -93,13 +93,18 @@ h1, h2, h3 {
     color: #555;
 }
 
+.player-input .input-label {
+    color: #666;
+    font-size: 14px;
+    margin-right: 4px;
+}
+
 .player-input input[type="text"] {
-    flex: 1;
-    min-width: 150px;
-    padding: 10px 15px;
+    flex: 0 1 120px;
+    padding: 8px 12px;
     border: 2px solid #ddd;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 15px;
     transition: border-color 0.3s ease;
 }
 
@@ -109,11 +114,11 @@ h1, h2, h3 {
 
 .player-score-input,
 .player-consecutive-input {
-    width: 80px;
-    padding: 10px 15px;
+    width: 70px;
+    padding: 8px 10px;
     border: 2px solid #ddd;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 15px;
     transition: border-color 0.3s ease;
     text-align: center;
 }

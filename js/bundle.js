@@ -210,16 +210,26 @@ const Game = {
 
     initNewGame(playerNames, playerScores, firstBankerId, playerConsecutives) {
         const players = playerNames.map((name, id) => {
-            const consecutiveWins = playerConsecutives[id] || 0;
             const isBanker = id === parseInt(firstBankerId);
+            let consecutiveWins = playerConsecutives[id] || 0;
+
+            // 如果是庄家，确保连庄数至少为1
+            if (isBanker && consecutiveWins === 0) {
+                consecutiveWins = 1;
+            }
+            // 如果不是庄家，连庄数必须为0
+            if (!isBanker) {
+                consecutiveWins = 0;
+            }
+
             return {
                 id,
                 name,
                 score: playerScores[id],
                 initialScore: playerScores[id],
                 role: isBanker ? 'banker' : 'player',
-                consecutiveWins: isBanker ? (consecutiveWins > 0 ? consecutiveWins : 1) : 0,
-                bankerLevel: isBanker ? (consecutiveWins > 0 ? consecutiveWins : 1) : 0
+                consecutiveWins: consecutiveWins,
+                bankerLevel: consecutiveWins
             };
         });
 
@@ -705,6 +715,27 @@ const App = {
         UI.elements.confirmRestartBtn.addEventListener('click', () => this.handleConfirmRestart());
         UI.elements.winnerSelect.addEventListener('change', () => this.handlePlayerSelect());
         UI.elements.winTypeSelect.addEventListener('change', () => this.handlePlayerSelect());
+
+        // 绑定庄家选择事件，自动调整连庄数
+        const bankerRadios = document.querySelectorAll('input[name="first-banker"]');
+        bankerRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                const selectedPlayerId = parseInt(e.target.value);
+
+                // 遍历所有玩家
+                UI.elements.playerConsecutiveInputs.forEach((input, index) => {
+                    if (index === selectedPlayerId) {
+                        // 被选中的庄家，如果连庄数为0，自动设置为1
+                        if (parseInt(input.value) === 0) {
+                            input.value = 1;
+                        }
+                    } else {
+                        // 其他玩家，连庄数自动设置为0
+                        input.value = 0;
+                    }
+                });
+            });
+        });
 
         // 检查存档
         if (Storage.hasSaveGame()) {
