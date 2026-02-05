@@ -445,27 +445,26 @@ const UI = {
         const infoItem = document.createElement('div');
         infoItem.className = 'score-preview-info';
         infoItem.innerHTML = `
-            <div class="preview-info-row">
-                <span class="info-label">本局牌型:</span>
-                <span class="info-value">${fan}番</span>
-            </div>
-            <div class="preview-info-row">
-                <span class="info-label">连庄番数:</span>
-                <span class="info-value">${bankerFan}番</span>
-            </div>
-            <div class="preview-info-row">
-                <span class="info-label">计分公式:</span>
-                <span class="info-value">2^${fan} × 2^${bankerFan}</span>
-            </div>
+            胡牌番数：<span class="fan-badge fan-${fan}">${fan}番</span>
+            连庄番数：<span class="fan-badge fan-banker-${bankerFan}">${bankerFan}番</span>
         `;
         this.elements.scorePreviewContent.appendChild(infoItem);
 
         scoreChanges.forEach(change => {
-            const player = players.find(p => p.id === change.playerId);
             const item = document.createElement('div');
             item.className = 'score-preview-item';
-            item.textContent = `${player.name}: ${change.change >= 0 ? '+' : ''}${change.change} 分`;
-            item.classList.add(change.change >= 0 ? 'positive' : 'negative');
+
+            const player = players.find(p => p.id === change.playerId);
+            const playerName = document.createElement('div');
+            playerName.className = 'player-name';
+            playerName.textContent = player.name;
+
+            const playerScore = document.createElement('div');
+            playerScore.className = `player-score ${change.change >= 0 ? 'positive' : 'negative'}`;
+            playerScore.textContent = `${change.change >= 0 ? '+' : ''}${change.change} 分`;
+
+            item.appendChild(playerName);
+            item.appendChild(playerScore);
             this.elements.scorePreviewContent.appendChild(item);
         });
     },
