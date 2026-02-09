@@ -626,16 +626,16 @@ h1, h2, h3 {
     color: #fff;
 }
 
-.fan-badge.fan-0 { background: #88cfff; }
-.fan-badge.fan-1 { background: #5ebfff; }
-.fan-badge.fan-2 { background: #44b2fc; }
-.fan-badge.fan-3 { background: #2795de; }
-.fan-badge.fan-4 { background: #037bca; }
+.fan-badge.fan-0 { background: #43b4ff; }
+.fan-badge.fan-1 { background: #34aaff; }
+.fan-badge.fan-2 { background: #188cff; }
+.fan-badge.fan-3 { background: #0481ff; }
+.fan-badge.fan-4 { background: #0062d3; }
 
 .fan-badge.fan-banker-0 { background: #95a5a6; }
-.fan-badge.fan-banker-1 { background: rgb(255, 203, 47); }
-.fan-badge.fan-banker-2 { background: #ffbc12; }
-.fan-badge.fan-banker-3 { background: #ff9b44; }
+.fan-badge.fan-banker-1 { background: #ff87c1; }
+.fan-badge.fan-banker-2 { background: #ff62ae; }
+.fan-badge.fan-banker-3 { background: #f21881; }
 
 /* 预计盈亏 - 一行4个玩家 */
 .score-preview-row {
@@ -662,6 +662,10 @@ h1, h2, h3 {
     color: #333;
     font-size: 14px;
     margin-bottom: 6px;
+}
+
+.preview-player-name.banker-name {
+    color: #df0672;
 }
 
 .preview-player-score {
@@ -708,7 +712,8 @@ h1, h2, h3 {
 }
 
 .history-player-column.banker .history-player-name {
-    color: #e67e22;
+    color: #df0672;
+    font-weight: bold;
 }
 
 .history-player-name {

@@ -416,7 +416,12 @@ const UI = {
     updatePlayerCards(players) {
         players.forEach(player => {
             const card = this.elements.playerCards[player.id];
-            card.querySelector('.player-name').textContent = player.name;
+            // 庄家名字左边添加👑
+            if (player.role === 'banker') {
+                card.querySelector('.player-name').textContent = `👑${player.name}`;
+            } else {
+                card.querySelector('.player-name').textContent = player.name;
+            }
             card.querySelector('.player-score .score').textContent = player.score;
 
             // 显示连庄信息：庄家显示"X连庄"，闲家显示"闲家"
@@ -469,7 +474,7 @@ const UI = {
         }
     },
 
-    updateScorePreview(scoreChanges, players, fan, bankerFan) {
+    updateScorePreview(scoreChanges, players, fan, bankerFan, bankerId) {
         this.elements.scorePreviewContent.innerHTML = '';
 
         // 添加牌型番数和连庄番数说明
@@ -495,7 +500,13 @@ const UI = {
 
             const playerName = document.createElement('div');
             playerName.className = 'preview-player-name';
-            playerName.textContent = player.name;
+            // 如果是庄家，左侧添加👑标识
+            if (player.id === bankerId) {
+                playerName.classList.add('banker-name');
+                playerName.textContent = `👑${player.name}`;
+            } else {
+                playerName.textContent = player.name;
+            }
 
             const playerScore = document.createElement('div');
             playerScore.className = `preview-player-score ${change.change >= 0 ? 'score-positive' : 'score-negative'}`;
@@ -794,7 +805,7 @@ const App = {
                 banker.bankerLevel,
                 gameState.players
             );
-            UI.updateScorePreview(result.scoreChanges, gameState.players, result.fan, result.bankerFan);
+            UI.updateScorePreview(result.scoreChanges, gameState.players, result.fan, result.bankerFan, banker.id);
             this.currentScorePreview = {
                 winnerId: parseInt(winnerId),
                 winTypeId,
