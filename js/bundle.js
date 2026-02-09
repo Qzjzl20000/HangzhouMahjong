@@ -790,6 +790,96 @@ const UI = {
                 }
             });
         });
+    },
+
+    // ==================== 图表相关方法 ====================
+    initChart(players) {
+        if (typeof Chart === 'undefined') {
+            console.error('Chart.js 未加载');
+            return;
+        }
+
+        const ctx = this.elements.scoreChart.getContext('2d');
+
+        // 玩家颜色配置
+        const colors = ['#667eea', '#2ecc71', '#e67e22', '#9b59b6'];
+
+        this.chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['开局'],
+                datasets: players.map((player, index) => ({
+                    label: player.name,
+                    data: [player.initialScore || player.score],
+                    borderColor: colors[index],
+                    backgroundColor: colors[index],
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    tension: 0 // 直线，不使用平滑曲线
+                }))
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 15,
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 10,
+                        titleFont: {
+                            size: 13
+                        },
+                        bodyFont: {
+                            size: 12
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: '局数',
+                            font: {
+                                size: 12
+                            }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: '积分',
+                            font: {
+                                size: 12
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    }
+                }
+            }
+        });
     }
 };
 
