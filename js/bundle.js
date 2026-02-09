@@ -411,8 +411,14 @@ const UI = {
         this.elements.playerCards.forEach((card, index) => {
             card.style.cursor = 'pointer';
             card.addEventListener('click', () => {
-                // 设置胡牌玩家下拉框的值为该玩家ID
-                this.elements.winnerSelect.value = index;
+                const currentWinnerId = this.elements.winnerSelect.value;
+                // 如果点击的是当前已选中的玩家，则取消选中
+                if (currentWinnerId === String(index)) {
+                    this.elements.winnerSelect.value = '';
+                } else {
+                    // 否则选中该玩家
+                    this.elements.winnerSelect.value = index;
+                }
                 // 触发change事件，调用handlePlayerSelect
                 this.elements.winnerSelect.dispatchEvent(new Event('change'));
             });
