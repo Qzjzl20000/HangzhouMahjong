@@ -140,7 +140,11 @@
               />
             </div>
             <div class="banker-selection">
-              <button type="button" class="banker-select-btn active" data-player="0">
+              <button
+                type="button"
+                class="banker-select-btn active"
+                data-player="0"
+              >
                 玩家1
               </button>
               <button type="button" class="banker-select-btn" data-player="1">
@@ -260,7 +264,11 @@
         <div class="history-section">
           <div class="section-header">
             <h2>历史记录</h2>
-            <button id="toggle-history-btn" class="toggle-btn" data-expanded="true">
+            <button
+              id="toggle-history-btn"
+              class="toggle-btn"
+              data-expanded="true"
+            >
               <span class="toggle-icon">▼</span>
             </button>
           </div>
@@ -273,19 +281,27 @@
         <div class="chart-section">
           <div class="section-header">
             <h2>📈 积分曲线</h2>
-            <button id="toggle-chart-btn" class="toggle-btn" data-expanded="true">
+            <button
+              id="toggle-chart-btn"
+              class="toggle-btn"
+              data-expanded="true"
+            >
               <span class="toggle-icon">▼</span>
             </button>
           </div>
           <div class="chart-container">
             <canvas id="score-chart"></canvas>
-            <div class="chart-empty-state">暂无数据，完成第一局后将显示积分变化曲线</div>
+            <div class="chart-empty-state">
+              暂无数据，完成第一局后将显示积分变化曲线
+            </div>
           </div>
         </div>
 
         <!-- 重新开始按钮 -->
         <div class="actions-section">
-          <button id="undo-btn" class="btn btn-warning" disabled>回退到上一局</button>
+          <button id="undo-btn" class="btn btn-warning" disabled>
+            回退到上一局
+          </button>
           <button id="restart-btn" class="btn btn-danger">重新开始</button>
         </div>
       </div>
@@ -313,9 +329,7 @@
         <h3>⚠️ 确认回退</h3>
         <p>确定要回退到上一局吗？当前局的记录将被删除。</p>
         <div class="modal-actions">
-          <button id="cancel-undo-btn" class="btn btn-secondary">
-            取消
-          </button>
+          <button id="cancel-undo-btn" class="btn btn-secondary">取消</button>
           <button id="confirm-undo-btn" class="btn btn-warning">
             确认回退
           </button>

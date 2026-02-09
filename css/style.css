@@ -895,7 +895,7 @@ h1, h2, h3 {
 
 /* 历史记录容器 */
 .history-list-container {
-    max-height: 400px;
+    max-height: 840px;
     overflow-y: auto;
     padding-right: 5px;
     transition: max-height 0.3s ease, opacity 0.3s ease;
