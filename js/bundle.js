@@ -992,6 +992,10 @@ const App = {
         UI.elements.cancelUndoBtn.addEventListener('click', () => UI.hideUndoModal());
         UI.elements.confirmUndoBtn.addEventListener('click', () => this.handleUndo());
 
+        // 绑定折叠切换事件
+        UI.elements.toggleChartBtn.addEventListener('click', () => UI.toggleChart());
+        UI.elements.toggleHistoryBtn.addEventListener('click', () => UI.toggleHistory());
+
         // 检查存档
         if (Storage.hasSaveGame()) {
             const savedGame = Storage.loadGame();
@@ -1138,6 +1142,10 @@ const App = {
         UI.addHistoryItem(round, gameState.players);
         // 更新回退按钮状态
         UI.updateUndoButton(gameState.rounds.length);
+        // 更新历史记录空状态
+        UI.updateHistoryEmptyState(true);
+        // 更新图表
+        UI.updateChart(gameState.rounds, gameState.players);
 
         UI.elements.winnerSelect.value = '';
         UI.elements.winTypeSelect.value = '';
@@ -1161,6 +1169,12 @@ const App = {
         UI.clearHistory();
         UI.resetDice();
         UI.updateUndoButton(0); // 重新开始后禁用回退按钮
+        // 重置图表和历史记录空状态
+        if (UI.chart) {
+            UI.chart.destroy();
+            UI.chart = null;
+        }
+        UI.updateHistoryEmptyState(false);
         UI.showSetupScreen();
         UI.hideConfirmModal();
     },
@@ -1234,6 +1248,13 @@ const App = {
         });
         // 更新回退按钮状态
         UI.updateUndoButton(gameState.rounds.length);
+        // 更新历史记录空状态
+        UI.updateHistoryEmptyState(gameState.rounds.length > 0);
+        // 初始化或更新图表
+        if (!UI.chart) {
+            UI.initChart(gameState.players);
+        }
+        UI.updateChart(gameState.rounds, gameState.players);
         UI.showGameScreen();
     },
 
