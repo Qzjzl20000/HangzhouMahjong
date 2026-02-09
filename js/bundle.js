@@ -383,6 +383,10 @@ const UI = {
             restartBtn: document.getElementById('restart-btn'),
             cancelRestartBtn: document.getElementById('cancel-restart-btn'),
             confirmRestartBtn: document.getElementById('confirm-restart-btn'),
+            undoBtn: document.getElementById('undo-btn'),
+            undoModal: document.getElementById('undo-modal'),
+            cancelUndoBtn: document.getElementById('cancel-undo-btn'),
+            confirmUndoBtn: document.getElementById('confirm-undo-btn'),
             dice1: document.getElementById('dice1'),
             dice2: document.getElementById('dice2'),
             dice1Value: document.getElementById('dice1-value'),
@@ -441,6 +445,23 @@ const UI = {
 
     hideConfirmModal() {
         this.elements.confirmModal.classList.add('hidden');
+    },
+
+    showUndoModal() {
+        this.elements.undoModal.classList.remove('hidden');
+    },
+
+    hideUndoModal() {
+        this.elements.undoModal.classList.add('hidden');
+    },
+
+    updateUndoButton(roundsCount) {
+        // 历史记录 >= 1 条时可以回退
+        if (roundsCount >= 1) {
+            this.elements.undoBtn.disabled = false;
+        } else {
+            this.elements.undoBtn.disabled = true;
+        }
     },
 
     updatePlayerCards(players) {
@@ -786,6 +807,11 @@ const App = {
             // 庄家选择变化时的回调（如果需要）
         });
 
+        // 绑定回退相关事件
+        UI.elements.undoBtn.addEventListener('click', () => UI.showUndoModal());
+        UI.elements.cancelUndoBtn.addEventListener('click', () => UI.hideUndoModal());
+        UI.elements.confirmUndoBtn.addEventListener('click', () => this.handleUndo());
+
         // 检查存档
         if (Storage.hasSaveGame()) {
             const savedGame = Storage.loadGame();
@@ -916,17 +942,22 @@ const App = {
             scoreChanges: this.currentScorePreview.scoreChanges,
             fan: this.currentScorePreview.fan,
             bankerFan: this.currentScorePreview.bankerFan,
-            // 保存变化前后的玩家分数
+            // 保存变化前后的玩家完整状态
             playersBefore,
             playersAfter: gameState.players.map(p => ({
                 id: p.id,
                 name: p.name,
-                score: p.score
+                score: p.score,
+                role: p.role,
+                consecutiveWins: p.consecutiveWins,
+                bankerLevel: p.bankerLevel
             }))
         });
 
         UI.updatePlayerCards(gameState.players);
         UI.addHistoryItem(round, gameState.players);
+        // 更新回退按钮状态
+        UI.updateUndoButton(gameState.rounds.length);
 
         UI.elements.winnerSelect.value = '';
         UI.elements.winTypeSelect.value = '';
@@ -947,17 +978,76 @@ const App = {
         Storage.clearGame();
         UI.clearHistory();
         UI.resetDice();
+        UI.updateUndoButton(0); // 重新开始后禁用回退按钮
         UI.showSetupScreen();
         UI.hideConfirmModal();
     },
 
+    handleUndo() {
+        const gameState = Game.getState();
+        const rounds = gameState.rounds;
+
+        // 检查是否有历史记录可以回退
+        if (rounds.length < 1) {
+            return;
+        }
+
+        // 删除最新的历史记录
+        const lastRound = rounds.pop();
+        gameState.currentRound = rounds.length;
+
+        // 如果还有历史记录，恢复到上一局的状态
+        if (rounds.length > 0) {
+            const prevRound = rounds[rounds.length - 1];
+            const playersAfter = prevRound.playersAfter || prevRound.players;
+
+            // 恢复玩家状态
+            gameState.players.forEach(player => {
+                const prevPlayer = playersAfter.find(p => p.id === player.id);
+                if (prevPlayer) {
+                    player.score = prevPlayer.score;
+                    player.role = prevPlayer.role;
+                    player.consecutiveWins = prevPlayer.consecutiveWins || 0;
+                    player.bankerLevel = prevPlayer.bankerLevel || 0;
+                }
+            });
+
+            // 更新庄家选择按钮状态
+            const banker = gameState.players.find(p => p.role === 'banker');
+            if (banker) {
+                UI.setBankerSelection(banker.id);
+            }
+        } else {
+            // 没有历史记录了，回到开局状态
+            gameState.players.forEach(player => {
+                player.score = player.initialScore || 100;
+                player.role = 'player';
+                player.consecutiveWins = 0;
+                player.bankerLevel = 0;
+            });
+            UI.setBankerSelection(0);
+        }
+
+        // 更新UI
+        this.showGameScreen();
+        UI.clearScorePreview();
+        this.currentScorePreview = null;
+        UI.hideUndoModal();
+
+        // 保存游戏状态
+        this.saveGame();
+    },
+
     showGameScreen() {
         const gameState = Game.getState();
+        UI.clearHistory(); // 先清空历史记录列表
         UI.updatePlayerCards(gameState.players);
         UI.updateWinnerSelect(gameState.players);
         gameState.rounds.forEach(round => {
             UI.addHistoryItem(round, gameState.players);
         });
+        // 更新回退按钮状态
+        UI.updateUndoButton(gameState.rounds.length);
         UI.showGameScreen();
     },
 

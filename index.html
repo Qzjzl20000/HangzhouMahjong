@@ -264,6 +264,7 @@
 
         <!-- 重新开始按钮 -->
         <div class="actions-section">
+          <button id="undo-btn" class="btn btn-warning" disabled>回退到上一局</button>
           <button id="restart-btn" class="btn btn-danger">重新开始</button>
         </div>
       </div>
@@ -280,6 +281,22 @@
           </button>
           <button id="confirm-restart-btn" class="btn btn-danger">
             确认重新开始
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 回退确认对话框 -->
+    <div id="undo-modal" class="modal hidden">
+      <div class="modal-content">
+        <h3>⚠️ 确认回退</h3>
+        <p>确定要回退到上一局吗？当前局的记录将被删除。</p>
+        <div class="modal-actions">
+          <button id="cancel-undo-btn" class="btn btn-secondary">
+            取消
+          </button>
+          <button id="confirm-undo-btn" class="btn btn-warning">
+            确认回退
           </button>
         </div>
       </div>

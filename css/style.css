@@ -61,6 +61,22 @@ h1, h2, h3 {
     background: #c0392b;
 }
 
+.btn-warning {
+    background: #f39c12;
+    color: #fff;
+    border: 2px solid #e67e22;
+}
+
+.btn-warning:hover:not(:disabled) {
+    background: #e67e22;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
 .btn-full-width {
     width: 100%;
     margin: 15px 0;
@@ -842,8 +858,15 @@ h1, h2, h3 {
 
 /* 操作区域 */
 .actions-section {
-    text-align: center;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
     margin-bottom: 12px;
+}
+
+.actions-section .btn {
+    flex: 1;
+    max-width: 200px;
 }
 
 /* 确认对话框 */
