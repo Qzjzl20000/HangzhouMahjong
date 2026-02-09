@@ -177,38 +177,40 @@
               <span class="toggle-icon">▼</span>
             </button>
           </div>
-          <div class="dice-container">
-            <div class="dice-wrapper">
-              <div class="dice" id="dice1">
-                <div class="dice-question">?</div>
-                <div class="dice-face" data-value="1">⚀</div>
-                <div class="dice-face" data-value="2">⚁</div>
-                <div class="dice-face" data-value="3">⚂</div>
-                <div class="dice-face" data-value="4">⚃</div>
-                <div class="dice-face" data-value="5">⚄</div>
-                <div class="dice-face" data-value="6">⚅</div>
+          <div class="dice-content-wrapper">
+            <div class="dice-container">
+              <div class="dice-wrapper">
+                <div class="dice" id="dice1">
+                  <div class="dice-question">?</div>
+                  <div class="dice-face" data-value="1">⚀</div>
+                  <div class="dice-face" data-value="2">⚁</div>
+                  <div class="dice-face" data-value="3">⚂</div>
+                  <div class="dice-face" data-value="4">⚃</div>
+                  <div class="dice-face" data-value="5">⚄</div>
+                  <div class="dice-face" data-value="6">⚅</div>
+                </div>
+                <div class="dice-result">
+                  点数: <span id="dice1-value">?</span>
+                </div>
               </div>
-              <div class="dice-result">
-                点数: <span id="dice1-value">?</span>
+              <div class="dice-wrapper">
+                <div class="dice" id="dice2">
+                  <div class="dice-question">?</div>
+                  <div class="dice-face" data-value="1">⚀</div>
+                  <div class="dice-face" data-value="2">⚁</div>
+                  <div class="dice-face" data-value="3">⚂</div>
+                  <div class="dice-face" data-value="4">⚃</div>
+                  <div class="dice-face" data-value="5">⚄</div>
+                  <div class="dice-face" data-value="6">⚅</div>
+                </div>
+                <div class="dice-result">
+                  点数: <span id="dice2-value">?</span>
+                </div>
               </div>
             </div>
-            <div class="dice-wrapper">
-              <div class="dice" id="dice2">
-                <div class="dice-question">?</div>
-                <div class="dice-face" data-value="1">⚀</div>
-                <div class="dice-face" data-value="2">⚁</div>
-                <div class="dice-face" data-value="3">⚂</div>
-                <div class="dice-face" data-value="4">⚃</div>
-                <div class="dice-face" data-value="5">⚄</div>
-                <div class="dice-face" data-value="6">⚅</div>
-              </div>
-              <div class="dice-result">
-                点数: <span id="dice2-value">?</span>
-              </div>
-            </div>
+            <div class="dice-total">总点数: <span id="dice-total">?</span></div>
+            <button id="roll-dice-btn" class="btn btn-secondary">投掷骰子</button>
           </div>
-          <div class="dice-total">总点数: <span id="dice-total">?</span></div>
-          <button id="roll-dice-btn" class="btn btn-secondary">投掷骰子</button>
         </div>
 
         <!-- 玩家状态卡片 -->

@@ -596,7 +596,7 @@ const UI = {
       historyListContainer: document.querySelector(".history-list-container"),
       historyEmptyState: document.querySelector(".history-empty-state"),
       toggleHistoryBtn: document.getElementById("toggle-history-btn"),
-      diceContainer: document.querySelector(".dice-container"),
+      diceContentWrapper: document.querySelector(".dice-content-wrapper"),
       toggleDiceBtn: document.getElementById("toggle-dice-btn"),
       scoringForm: document.querySelector(".scoring-form"),
       toggleScoringBtn: document.getElementById("toggle-scoring-btn"),
@@ -1152,6 +1152,16 @@ const UI = {
       dataset.label = players[index].name;
     });
 
+    // 当局数超过8局时，设置图表最小宽度以启用横向滚动
+    const totalPoints = labels.length;
+    if (totalPoints > 8) {
+      // 计算合适的宽度：每个数据点至少需要80px
+      const minWidth = Math.max(100, totalPoints * 80);
+      this.elements.scoreChart.style.minWidth = `${minWidth}px`;
+    } else {
+      this.elements.scoreChart.style.minWidth = "100%";
+    }
+
     this.chart.update();
   },
 
@@ -1185,7 +1195,7 @@ const UI = {
 
   toggleDice() {
     const isExpanded = this.elements.toggleDiceBtn.dataset.expanded === "true";
-    const container = this.elements.diceContainer;
+    const container = this.elements.diceContentWrapper;
 
     if (isExpanded) {
       container.classList.add("collapsed");

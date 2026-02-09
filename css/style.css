@@ -362,19 +362,21 @@ h1, h2, h3 {
     margin-bottom: 10px;
 }
 
+.dice-content-wrapper {
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.dice-content-wrapper.collapsed {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
 .dice-container {
     display: flex;
     justify-content: center;
     gap: 40px;
     margin: 20px 0;
-    transition: max-height 0.3s ease, opacity 0.3s ease;
-}
-
-.dice-container.collapsed {
-    max-height: 0;
-    overflow: hidden;
-    margin: 0;
-    opacity: 0;
 }
 
 .dice {
@@ -947,6 +949,8 @@ h1, h2, h3 {
 .chart-container {
     position: relative;
     height: 250px;
+    overflow-x: auto;
+    overflow-y: hidden;
     transition: max-height 0.3s ease, opacity 0.3s ease;
 }
 
@@ -957,7 +961,7 @@ h1, h2, h3 {
 }
 
 .chart-container canvas {
-    width: 100% !important;
+    min-width: 100%;
     height: 100% !important;
 }
 
