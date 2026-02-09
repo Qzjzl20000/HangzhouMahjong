@@ -961,6 +961,8 @@ const App = {
 
         UI.elements.winnerSelect.value = '';
         UI.elements.winTypeSelect.value = '';
+        // 触发 change 事件以移除玩家卡片选中效果
+        UI.elements.winnerSelect.dispatchEvent(new Event('change'));
         UI.clearScorePreview();
         this.currentScorePreview = null;
 
@@ -1030,6 +1032,10 @@ const App = {
 
         // 更新UI
         this.showGameScreen();
+        // 清空选择框并触发事件以移除玩家卡片选中效果
+        UI.elements.winnerSelect.value = '';
+        UI.elements.winTypeSelect.value = '';
+        UI.elements.winnerSelect.dispatchEvent(new Event('change'));
         UI.clearScorePreview();
         this.currentScorePreview = null;
         UI.hideUndoModal();
