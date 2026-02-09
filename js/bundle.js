@@ -208,28 +208,17 @@ const ScoreCalculator = {
 const Game = {
     state: null,
 
-    initNewGame(playerNames, playerScores, firstBankerId, playerConsecutives) {
+    initNewGame(playerNames, playerScores, firstBankerId, consecutiveWins) {
         const players = playerNames.map((name, id) => {
             const isBanker = id === parseInt(firstBankerId);
-            let consecutiveWins = playerConsecutives[id] || 0;
-
-            // 如果是庄家，确保连庄数至少为1
-            if (isBanker && consecutiveWins === 0) {
-                consecutiveWins = 1;
-            }
-            // 如果不是庄家，连庄数必须为0
-            if (!isBanker) {
-                consecutiveWins = 0;
-            }
-
             return {
                 id,
                 name,
-                score: playerScores[id],
-                initialScore: playerScores[id],
+                score: playerScores ? playerScores[id] : 100,
+                initialScore: playerScores ? playerScores[id] : 100,
                 role: isBanker ? 'banker' : 'player',
-                consecutiveWins: consecutiveWins,
-                bankerLevel: consecutiveWins
+                consecutiveWins: isBanker ? (consecutiveWins || 1) : 0,
+                bankerLevel: isBanker ? Math.min(consecutiveWins || 1, 3) : 0
             };
         });
 
@@ -363,7 +352,7 @@ const UI = {
             setupScreen: document.getElementById('setup-screen'),
             gameScreen: document.getElementById('game-screen'),
             confirmModal: document.getElementById('confirm-modal'),
-            bankerToggleBtns: document.querySelectorAll('.banker-toggle-btn'),
+            bankerSelectBtns: document.querySelectorAll('.banker-select-btn'),
             playerNames: [
                 document.getElementById('player0-name'),
                 document.getElementById('player1-name'),
@@ -378,12 +367,7 @@ const UI = {
                 document.getElementById('player2-score'),
                 document.getElementById('player3-score')
             ],
-            playerConsecutiveInputs: [
-                document.getElementById('player0-consecutive'),
-                document.getElementById('player1-consecutive'),
-                document.getElementById('player2-consecutive'),
-                document.getElementById('player3-consecutive')
-            ],
+            consecutiveCount: document.getElementById('consecutive-count'),
             startGameBtn: document.getElementById('start-game-btn'),
             playerCards: [
                 document.getElementById('player0-card'),
@@ -406,6 +390,9 @@ const UI = {
             diceTotal: document.getElementById('dice-total'),
             rollDiceBtn: document.getElementById('roll-dice-btn')
         };
+
+        // 当前选中的庄家
+        this.currentBankerId = 0;
     },
 
     showSetupScreen() {
@@ -689,12 +676,36 @@ const UI = {
 
     getSetupValues() {
         const playerNames = this.elements.playerNames.map(input => input.value || `玩家${parseInt(input.id.slice(-1)) + 1}`);
-        const activeBankerBtn = document.querySelector('.banker-toggle-btn.active');
-        const firstBankerId = activeBankerBtn ? parseInt(activeBankerBtn.dataset.player) : 0;
+        const firstBankerId = this.currentBankerId;
+        const consecutiveWins = parseInt(this.elements.consecutiveCount.value) || 1;
         const playerScores = this.elements.playerScoreInputs.map(input => parseInt(input.value) || 100);
-        const playerConsecutives = this.elements.playerConsecutiveInputs.map(input => parseInt(input.value) || 0);
+        const initialScore = parseInt(this.elements.initialScore.value) || 100;
 
-        return { playerNames, firstBankerId, playerScores, playerConsecutives };
+        return { playerNames, firstBankerId, consecutiveWins, playerScores, initialScore };
+    },
+
+    setBankerSelection(bankerId) {
+        this.currentBankerId = parseInt(bankerId);
+        this.elements.bankerSelectBtns.forEach(btn => {
+            const playerId = parseInt(btn.dataset.player);
+            if (playerId === this.currentBankerId) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    },
+
+    bindBankerSelection(callback) {
+        this.elements.bankerSelectBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const playerId = parseInt(btn.dataset.player);
+                this.setBankerSelection(playerId);
+                if (callback) {
+                    callback(playerId);
+                }
+            });
+        });
     }
 };
 
@@ -718,36 +729,9 @@ const App = {
         UI.elements.winnerSelect.addEventListener('change', () => this.handlePlayerSelect());
         UI.elements.winTypeSelect.addEventListener('change', () => this.handlePlayerSelect());
 
-        // 绑定庄家切换按钮事件
-        UI.elements.bankerToggleBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const clickedPlayerId = parseInt(e.target.dataset.player);
-                const isActive = e.target.classList.contains('active');
-
-                if (isActive) {
-                    // 如果已经激活，点击则不做任何操作（必须有一个庄家）
-                    return;
-                }
-
-                // 移除所有按钮的active类
-                UI.elements.bankerToggleBtns.forEach(b => b.classList.remove('active'));
-
-                // 激活点击的按钮
-                e.target.classList.add('active');
-
-                // 更新连庄输入框状态
-                UI.elements.playerConsecutiveInputs.forEach((input, index) => {
-                    if (index === clickedPlayerId) {
-                        input.disabled = false;
-                        if (parseInt(input.value) === 0) {
-                            input.value = 1;
-                        }
-                    } else {
-                        input.disabled = true;
-                        input.value = 0;
-                    }
-                });
-            });
+        // 绑定庄家选择事件
+        UI.bindBankerSelection((playerId) => {
+            // 庄家选择变化时的回调（如果需要）
         });
 
         // 检查存档
@@ -772,7 +756,7 @@ const App = {
     },
 
     handleStartGame() {
-        const { playerNames, firstBankerId, playerScores, playerConsecutives } = UI.getSetupValues();
+        const { playerNames, firstBankerId, consecutiveWins, playerScores, initialScore } = UI.getSetupValues();
 
         if (playerNames.some(name => !name.trim())) {
             alert('请填写所有玩家名称');
@@ -784,7 +768,7 @@ const App = {
             return;
         }
 
-        Game.initNewGame(playerNames, playerScores, firstBankerId, playerConsecutives);
+        Game.initNewGame(playerNames, playerScores, firstBankerId, consecutiveWins);
         this.saveGame();
         UI.resetDice(); // 重置骰子为问号状态
         this.showGameScreen();

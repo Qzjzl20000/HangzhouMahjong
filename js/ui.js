@@ -13,6 +13,14 @@ export class UI {
                 document.getElementById('player2-name'),
                 document.getElementById('player3-name')
             ],
+            playerScores: [
+                document.getElementById('player0-score'),
+                document.getElementById('player1-score'),
+                document.getElementById('player2-score'),
+                document.getElementById('player3-score')
+            ],
+            bankerSelectBtns: document.querySelectorAll('.banker-select-btn'),
+            consecutiveCount: document.getElementById('consecutive-count'),
             firstBankerRadios: document.querySelectorAll('input[name="first-banker"]'),
             initialScore: document.getElementById('initial-score'),
             startGameBtn: document.getElementById('start-game-btn'),
@@ -39,6 +47,9 @@ export class UI {
             diceTotal: document.getElementById('dice-total'),
             rollDiceBtn: document.getElementById('roll-dice-btn')
         };
+
+        // 当前选中的庄家
+        this.currentBankerId = 0;
     }
 
     // 显示设置界面
@@ -202,10 +213,12 @@ export class UI {
     // 获取设置界面的值
     getSetupValues() {
         const playerNames = this.elements.playerNames.map(input => input.value || `玩家${parseInt(input.id.slice(-1)) + 1}`);
-        const firstBankerId = document.querySelector('input[name="first-banker"]:checked').value;
+        const playerScores = this.elements.playerScores.map(input => parseInt(input.value) || 100);
+        const firstBankerId = this.currentBankerId;
+        const consecutiveWins = parseInt(this.elements.consecutiveCount.value) || 0;
         const initialScore = parseInt(this.elements.initialScore.value) || 100;
 
-        return { playerNames, firstBankerId, initialScore };
+        return { playerNames, playerScores, firstBankerId, consecutiveWins, initialScore };
     }
 
     // 设置设置界面的值
@@ -214,11 +227,36 @@ export class UI {
             input.value = playerNames[index] || '';
         });
 
-        this.elements.firstBankerRadios.forEach(radio => {
-            radio.checked = radio.value === firstBankerId;
-        });
+        // 设置庄家选择
+        this.setBankerSelection(firstBankerId);
 
         this.elements.initialScore.value = initialScore;
+    }
+
+    // 设置庄家选择
+    setBankerSelection(bankerId) {
+        this.currentBankerId = parseInt(bankerId);
+        this.elements.bankerSelectBtns.forEach(btn => {
+            const playerId = parseInt(btn.dataset.player);
+            if (playerId === this.currentBankerId) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    // 绑定庄家选择事件
+    bindBankerSelection(callback) {
+        this.elements.bankerSelectBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const playerId = parseInt(btn.dataset.player);
+                this.setBankerSelection(playerId);
+                if (callback) {
+                    callback(playerId);
+                }
+            });
+        });
     }
 
     // 绑定事件监听器

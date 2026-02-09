@@ -24,6 +24,38 @@
               应用到全部
             </button>
           </div>
+          <!-- 庄家设置 -->
+          <div class="banker-setup">
+            <h4>庄家设置</h4>
+            <div class="banker-selection">
+              <button type="button" class="banker-select-btn active" data-player="0">
+                玩家1
+              </button>
+              <button type="button" class="banker-select-btn" data-player="1">
+                玩家2
+              </button>
+              <button type="button" class="banker-select-btn" data-player="2">
+                玩家3
+              </button>
+              <button type="button" class="banker-select-btn" data-player="3">
+                玩家4
+              </button>
+            </div>
+            <div class="consecutive-input-row">
+              <span class="input-label">连庄:</span>
+              <input
+                type="number"
+                id="consecutive-count"
+                class="consecutive-count-input"
+                placeholder="1"
+                value="1"
+                min="0"
+                max="3"
+              />
+            </div>
+          </div>
+
+          <!-- 玩家卡片 -->
           <div class="player-inputs">
             <div class="player-input" data-player="0">
               <div class="player-header">
@@ -46,25 +78,6 @@
                   placeholder="100"
                   value="100"
                   min="0"
-                />
-              </div>
-              <div class="banker-consecutive-group">
-                <button
-                  type="button"
-                  class="banker-toggle-btn active"
-                  data-player="0"
-                >
-                  庄家
-                </button>
-                <span class="input-label">连庄:</span>
-                <input
-                  type="number"
-                  id="player0-consecutive"
-                  class="player-consecutive-input"
-                  placeholder="1"
-                  value="1"
-                  min="0"
-                  max="3"
                 />
               </div>
             </div>
@@ -91,22 +104,6 @@
                   min="0"
                 />
               </div>
-              <div class="banker-consecutive-group">
-                <button type="button" class="banker-toggle-btn" data-player="1">
-                  庄家
-                </button>
-                <span class="input-label">连庄:</span>
-                <input
-                  type="number"
-                  id="player1-consecutive"
-                  class="player-consecutive-input"
-                  placeholder="0"
-                  value="0"
-                  min="0"
-                  max="3"
-                  disabled
-                />
-              </div>
             </div>
             <div class="player-input" data-player="2">
               <div class="player-header">
@@ -131,22 +128,6 @@
                   min="0"
                 />
               </div>
-              <div class="banker-consecutive-group">
-                <button type="button" class="banker-toggle-btn" data-player="2">
-                  庄家
-                </button>
-                <span class="input-label">连庄:</span>
-                <input
-                  type="number"
-                  id="player2-consecutive"
-                  class="player-consecutive-input"
-                  placeholder="0"
-                  value="0"
-                  min="0"
-                  max="3"
-                  disabled
-                />
-              </div>
             </div>
             <div class="player-input" data-player="3">
               <div class="player-header">
@@ -169,22 +150,6 @@
                   placeholder="100"
                   value="100"
                   min="0"
-                />
-              </div>
-              <div class="banker-consecutive-group">
-                <button type="button" class="banker-toggle-btn" data-player="3">
-                  庄家
-                </button>
-                <span class="input-label">连庄:</span>
-                <input
-                  type="number"
-                  id="player3-consecutive"
-                  class="player-consecutive-input"
-                  placeholder="0"
-                  value="0"
-                  min="0"
-                  max="3"
-                  disabled
                 />
               </div>
             </div>

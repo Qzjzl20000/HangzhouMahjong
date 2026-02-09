@@ -40,6 +40,11 @@ class App {
             onWinTypeChange: () => this.handlePlayerSelect()
         });
 
+        // 绑定庄家选择事件
+        this.ui.bindBankerSelection((playerId) => {
+            // 庄家选择变化时的回调（如果需要）
+        });
+
         // 检查是否有存档
         if (this.storage.hasSaveGame()) {
             const savedGame = this.storage.loadGame();
@@ -55,7 +60,7 @@ class App {
     }
 
     handleStartGame() {
-        const { playerNames, firstBankerId, initialScore } = this.ui.getSetupValues();
+        const { playerNames, playerScores, firstBankerId, consecutiveWins, initialScore } = this.ui.getSetupValues();
 
         // 验证输入
         if (playerNames.some(name => !name.trim())) {
@@ -69,7 +74,7 @@ class App {
         }
 
         // 初始化游戏
-        this.game.initNewGame(playerNames, initialScore, firstBankerId);
+        this.game.initNewGame(playerNames, playerScores, firstBankerId, consecutiveWins);
         this.saveGame();
         this.showGameScreen();
     }

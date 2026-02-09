@@ -5,16 +5,19 @@ export class Game {
     }
 
     // 初始化新游戏
-    initNewGame(playerNames, initialScore, firstBankerId) {
-        const players = playerNames.map((name, id) => ({
-            id,
-            name,
-            score: initialScore,
-            initialScore,
-            role: id === parseInt(firstBankerId) ? 'banker' : 'player',
-            consecutiveWins: id === parseInt(firstBankerId) ? 1 : 0,
-            bankerLevel: id === parseInt(firstBankerId) ? 1 : 0
-        }));
+    initNewGame(playerNames, playerScores, firstBankerId, consecutiveWins) {
+        const players = playerNames.map((name, id) => {
+            const isBanker = id === parseInt(firstBankerId);
+            return {
+                id,
+                name,
+                score: playerScores ? playerScores[id] : 100,
+                initialScore: playerScores ? playerScores[id] : 100,
+                role: isBanker ? 'banker' : 'player',
+                consecutiveWins: isBanker ? (consecutiveWins || 1) : 0,
+                bankerLevel: isBanker ? Math.min(consecutiveWins || 1, 3) : 0
+            };
+        });
 
         this.state = {
             gameId: this.generateUUID(),

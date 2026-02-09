@@ -261,6 +261,83 @@ h1, h2, h3 {
     font-size: 14px;
 }
 
+/* 庄家设置区域 */
+.banker-setup {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 20px;
+    border: 2px solid #dee2e6;
+}
+
+.banker-setup h4 {
+    color: #495057;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    text-align: center;
+}
+
+.banker-selection {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.banker-select-btn {
+    padding: 10px 8px;
+    border: 2px solid #dee2e6;
+    background: #fff;
+    color: #495057;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 40px;
+}
+
+.banker-select-btn:hover {
+    border-color: #667eea;
+    color: #667eea;
+}
+
+.banker-select-btn.active {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    border-color: #f5576c;
+    color: #fff;
+    font-weight: 600;
+}
+
+.banker-select-btn.active:hover {
+    background: linear-gradient(135deg, #e882e9 0%, #f0465b 100%);
+    border-color: #f0465b;
+}
+
+.consecutive-input-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.consecutive-count-input {
+    width: 70px;
+    padding: 10px 8px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    height: 40px;
+    text-align: center;
+    transition: border-color 0.3s ease;
+}
+
+.consecutive-count-input:focus {
+    border-color: #667eea;
+    outline: none;
+}
+
 /* 骰子区域 */
 .dice-section {
     background: #fff;
@@ -842,6 +919,35 @@ h1, h2, h3 {
         padding: 10px 16px;
         font-size: 14px;
         height: 44px;
+    }
+
+    /* 庄家设置区域响应式 */
+    .banker-setup {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .banker-setup h4 {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+
+    .banker-selection {
+        gap: 6px;
+        margin-bottom: 10px;
+    }
+
+    .banker-select-btn {
+        padding: 8px 6px;
+        font-size: 13px;
+        height: 38px;
+    }
+
+    .consecutive-count-input {
+        width: 65px;
+        padding: 8px 6px;
+        font-size: 13px;
+        height: 38px;
     }
 
     .players-section {
