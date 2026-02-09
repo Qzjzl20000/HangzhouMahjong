@@ -111,8 +111,8 @@ h1, h2, h3 {
 
 .player-config-row {
     display: grid;
-    grid-template-columns: auto 1fr auto 1fr;
-    gap: 8px 12px;
+    grid-template-columns: auto 1.2fr auto 1fr;
+    gap: 4px 20px;
     align-items: center;
 }
 
@@ -122,6 +122,26 @@ h1, h2, h3 {
     margin-right: 4px;
     min-width: 10px;
     white-space: nowrap;
+}
+
+.player-input .input-label:first-child {
+    margin-right: -10px;
+}
+
+.player-input .input-label:nth-child(3) {
+    margin-left: -10px;
+}
+
+.player-input input[type="text"] {
+    width: 100%;
+    padding: 8px 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    text-align: center;
+    box-sizing: border-box;
+    margin-right: 10px;
 }
 
 .score-consecutive-group {
@@ -860,8 +880,8 @@ h1, h2, h3 {
     }
 
     .player-config-row {
-        grid-template-columns: auto 1fr auto 1fr;
-        gap: 6px 10px;
+        grid-template-columns: auto 1.2fr auto 1fr;
+        gap: 4px 15px;
     }
 
     .player-config-row .input-label {
@@ -869,6 +889,22 @@ h1, h2, h3 {
         min-width: 20px;
         white-space: nowrap;
         margin-right: 2px;
+    }
+
+    .player-config-row .input-label:first-child {
+        margin-right: -8px;
+    }
+
+    .player-config-row .input-label:nth-child(3) {
+        margin-left: -8px;
+    }
+
+    .player-name-input {
+        padding: 12px 4px;
+    }
+
+    .player-input input[type="text"] {
+        margin-right: 8px;
     }
 
     .banker-consecutive-group {
@@ -1017,8 +1053,8 @@ h1, h2, h3 {
     }
 
     .player-config-row {
-        grid-template-columns: auto 1fr auto 1fr;
-        gap: 6px 10px;
+        grid-template-columns: auto 1.2fr auto 1fr;
+        gap: 4px 12px;
     }
 
     .player-config-row .input-label {
@@ -1027,10 +1063,19 @@ h1, h2, h3 {
         white-space: nowrap;
     }
 
+    .player-config-row .input-label:first-child {
+        margin-right: -6px;
+    }
+
+    .player-config-row .input-label:nth-child(3) {
+        margin-left: -6px;
+    }
+
     .player-input input[type="text"] {
         width: 100%;
         padding: 10px 6px;
         box-sizing: border-box;
+        margin-right: 6px;
     }
 
     .player-score-input {
