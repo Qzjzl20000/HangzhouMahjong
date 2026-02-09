@@ -858,18 +858,23 @@ h1, h2, h3 {
 
 /* 区域标题栏（带折叠按钮） */
 .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    position: relative;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .section-header h2 {
+    color: #333;
+    text-shadow: none;
     margin: 0;
 }
 
 /* 折叠按钮 */
 .toggle-btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
     background: none;
     border: none;
     cursor: pointer;
@@ -895,7 +900,7 @@ h1, h2, h3 {
 
 /* 历史记录容器 */
 .history-list-container {
-    max-height: 840px;
+    max-height: 630px;
     overflow-y: auto;
     padding-right: 5px;
     transition: max-height 0.3s ease, opacity 0.3s ease;
@@ -919,9 +924,9 @@ h1, h2, h3 {
 .chart-section {
     background: #fff;
     border-radius: 16px;
-    padding: 15px;
+    padding: 18px;
     margin-bottom: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 }
 
 .chart-container {
