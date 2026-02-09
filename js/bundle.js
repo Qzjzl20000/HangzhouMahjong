@@ -923,6 +923,42 @@ const UI = {
         });
 
         this.chart.update();
+    },
+
+    // ==================== 折叠切换方法 ====================
+    toggleChart() {
+        const isExpanded = this.elements.toggleChartBtn.dataset.expanded === 'true';
+        const container = this.elements.chartContainer;
+
+        if (isExpanded) {
+            container.classList.add('collapsed');
+            this.elements.toggleChartBtn.dataset.expanded = 'false';
+        } else {
+            container.classList.remove('collapsed');
+            this.elements.toggleChartBtn.dataset.expanded = 'true';
+        }
+    },
+
+    toggleHistory() {
+        const isExpanded = this.elements.toggleHistoryBtn.dataset.expanded === 'true';
+        const container = this.elements.historyListContainer;
+
+        if (isExpanded) {
+            container.classList.add('collapsed');
+            this.elements.toggleHistoryBtn.dataset.expanded = 'false';
+        } else {
+            container.classList.remove('collapsed');
+            this.elements.toggleHistoryBtn.dataset.expanded = 'true';
+        }
+    },
+
+    // 更新历史记录空状态显示
+    updateHistoryEmptyState(hasRecords) {
+        if (hasRecords) {
+            this.elements.historyEmptyState.style.display = 'none';
+        } else {
+            this.elements.historyEmptyState.style.display = 'block';
+        }
     }
 };
 
