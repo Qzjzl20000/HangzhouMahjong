@@ -393,6 +393,19 @@ const UI = {
 
         // 当前选中的庄家
         this.currentBankerId = 0;
+
+        // 绑定玩家昵称输入框与庄家选择按钮的实时同步
+        this.elements.playerNames.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                const newName = e.target.value || `玩家${index + 1}`;
+                // 更新对应玩家ID的庄家选择按钮文本
+                this.elements.bankerSelectBtns.forEach(btn => {
+                    if (parseInt(btn.dataset.player) === index) {
+                        btn.textContent = newName;
+                    }
+                });
+            });
+        });
     },
 
     showSetupScreen() {
