@@ -1028,7 +1028,7 @@ const UI = {
     const ctx = this.elements.scoreChart.getContext("2d");
 
     // 玩家颜色配置
-    const colors = ["#667eea", "#2ecc71", "#e67e22", "#9b59b6"];
+    const colors = ["#4b6bf9", "#0ad15d", "#ff8b1f", "#b923f4"];
 
     this.chart = new Chart(ctx, {
       type: "line",
