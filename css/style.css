@@ -85,25 +85,25 @@ h1, h2, h3 {
 .player-inputs {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 12px;
     margin-bottom: 15px;
 }
 
 .player-input {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 15px;
+    gap: 6px;
+    padding: 10px 12px;
     background: #f8f9fa;
     border-radius: 8px;
 }
 
 .player-header {
-    margin-bottom: 5px;
+    margin-bottom: 2px;
 }
 
 .player-header label {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     color: #2c3e50;
     margin: 0;
@@ -112,7 +112,7 @@ h1, h2, h3 {
 .player-config-row {
     display: grid;
     grid-template-columns: auto 1fr auto 1fr;
-    gap: 10px 15px;
+    gap: 8px 12px;
     align-items: center;
 }
 
@@ -848,24 +848,26 @@ h1, h2, h3 {
     /* 玩家配置区域响应式 */
     .player-inputs {
         grid-template-columns: 1fr;
-        gap: 15px;
+        gap: 10px;
     }
 
     .player-input {
-        padding: 18px;
+        padding: 10px 12px;
     }
 
     .player-header label {
-        font-size: 16px;
+        font-size: 15px;
     }
 
     .player-config-row {
-        gap: 8px;
-        flex-wrap: nowrap;
+        grid-template-columns: auto 1fr auto 1fr;
+        gap: 6px 10px;
     }
 
     .player-config-row .input-label {
         font-size: 13px;
+        min-width: 20px;
+        white-space: nowrap;
         margin-right: 2px;
     }
 
@@ -1010,11 +1012,13 @@ h1, h2, h3 {
     .player-input {
         flex-direction: column;
         align-items: stretch;
+        gap: 5px;
+        padding: 8px 10px;
     }
 
     .player-config-row {
         grid-template-columns: auto 1fr auto 1fr;
-        gap: 8px 12px;
+        gap: 6px 10px;
     }
 
     .player-config-row .input-label {
