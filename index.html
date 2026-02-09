@@ -32,7 +32,7 @@
                 <label>玩家1:</label>
               </div>
               <div class="player-config-row">
-                <span class="input-label">昵称:</span>
+                <span class="input-label">昵称</span>
                 <input
                   type="text"
                   id="player0-name"
@@ -40,7 +40,7 @@
                   value="玩家1"
                   class="player-name-input"
                 />
-                <span class="input-label">积分:</span>
+                <span class="input-label">积分</span>
                 <input
                   type="number"
                   id="player0-score"
@@ -56,7 +56,7 @@
                 <label>玩家2:</label>
               </div>
               <div class="player-config-row">
-                <span class="input-label">昵称:</span>
+                <span class="input-label">昵称</span>
                 <input
                   type="text"
                   id="player1-name"
@@ -64,7 +64,7 @@
                   value="玩家2"
                   class="player-name-input"
                 />
-                <span class="input-label">积分:</span>
+                <span class="input-label">积分</span>
                 <input
                   type="number"
                   id="player1-score"
@@ -80,7 +80,7 @@
                 <label>玩家3:</label>
               </div>
               <div class="player-config-row">
-                <span class="input-label">昵称:</span>
+                <span class="input-label">昵称</span>
                 <input
                   type="text"
                   id="player2-name"
@@ -88,7 +88,7 @@
                   value="玩家3"
                   class="player-name-input"
                 />
-                <span class="input-label">积分:</span>
+                <span class="input-label">积分</span>
                 <input
                   type="number"
                   id="player2-score"
@@ -104,7 +104,7 @@
                 <label>玩家4:</label>
               </div>
               <div class="player-config-row">
-                <span class="input-label">昵称:</span>
+                <span class="input-label">昵称</span>
                 <input
                   type="text"
                   id="player3-name"
@@ -112,7 +112,7 @@
                   value="玩家4"
                   class="player-name-input"
                 />
-                <span class="input-label">积分:</span>
+                <span class="input-label">积分</span>
                 <input
                   type="number"
                   id="player3-score"
@@ -126,9 +126,21 @@
           </div>
 
           <!-- 选择庄家 -->
-          <div class="banker-setup">
-            <h4>选择庄家</h4>
-            <div class="banker-selection-wrapper">
+          <div class="banker-section">
+            <h3>选择庄家</h3>
+            <div class="consecutive-setup">
+              <label for="consecutive-count">设置连庄:</label>
+              <input
+                type="number"
+                id="consecutive-count"
+                class="consecutive-count-input"
+                placeholder="1"
+                value="1"
+                min="0"
+                max="3"
+              />
+            </div>
+            <div class="banker-selection">
               <button type="button" class="banker-select-btn active" data-player="0">
                 玩家1
               </button>
@@ -141,18 +153,6 @@
               <button type="button" class="banker-select-btn" data-player="3">
                 玩家4
               </button>
-              <div class="consecutive-input-item">
-                <span class="input-label">连庄</span>
-                <input
-                  type="number"
-                  id="consecutive-count"
-                  class="consecutive-count-input"
-                  placeholder="1"
-                  value="1"
-                  min="0"
-                  max="3"
-                />
-              </div>
             </div>
           </div>
           <button id="start-game-btn" class="btn btn-primary btn-full-width">
