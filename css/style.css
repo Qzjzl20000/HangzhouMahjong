@@ -856,6 +856,130 @@ h1, h2, h3 {
     font-size: 13px;
 }
 
+/* 区域标题栏（带折叠按钮） */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.section-header h2 {
+    margin: 0;
+}
+
+/* 折叠按钮 */
+.toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    color: #667eea;
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.toggle-btn:hover {
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 5px;
+}
+
+.toggle-btn .toggle-icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.toggle-btn[data-expanded="false"] .toggle-icon {
+    transform: rotate(-90deg);
+}
+
+/* 历史记录容器 */
+.history-list-container {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 5px;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.history-list-container.collapsed {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
+/* 历史记录空状态 */
+.history-empty-state {
+    text-align: center;
+    color: #999;
+    padding: 30px 20px;
+    font-size: 14px;
+}
+
+/* 积分曲线图表区域 */
+.chart-section {
+    background: #fff;
+    border-radius: 16px;
+    padding: 15px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.chart-container {
+    position: relative;
+    height: 250px;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.chart-container.collapsed {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* 图表空状态 */
+.chart-empty-state {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+    padding: 20px;
+}
+
+.chart-empty-state.hidden {
+    display: none;
+}
+
+/* 滚动条样式 */
+.history-list-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.history-list-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.history-list-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.history-list-container::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
 /* 操作区域 */
 .actions-section {
     display: flex;
