@@ -367,6 +367,14 @@ h1, h2, h3 {
     justify-content: center;
     gap: 40px;
     margin: 20px 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.dice-container.collapsed {
+    max-height: 0;
+    overflow: hidden;
+    margin: 0;
+    opacity: 0;
 }
 
 .dice {
@@ -593,6 +601,13 @@ h1, h2, h3 {
 .scoring-form {
     display: grid;
     gap: 12px;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.scoring-form.collapsed {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
 }
 
 .form-group {

@@ -596,6 +596,10 @@ const UI = {
       historyListContainer: document.querySelector(".history-list-container"),
       historyEmptyState: document.querySelector(".history-empty-state"),
       toggleHistoryBtn: document.getElementById("toggle-history-btn"),
+      diceContainer: document.querySelector(".dice-container"),
+      toggleDiceBtn: document.getElementById("toggle-dice-btn"),
+      scoringForm: document.querySelector(".scoring-form"),
+      toggleScoringBtn: document.getElementById("toggle-scoring-btn"),
     };
 
     // 图表实例
@@ -1179,6 +1183,32 @@ const UI = {
     }
   },
 
+  toggleDice() {
+    const isExpanded = this.elements.toggleDiceBtn.dataset.expanded === "true";
+    const container = this.elements.diceContainer;
+
+    if (isExpanded) {
+      container.classList.add("collapsed");
+      this.elements.toggleDiceBtn.dataset.expanded = "false";
+    } else {
+      container.classList.remove("collapsed");
+      this.elements.toggleDiceBtn.dataset.expanded = "true";
+    }
+  },
+
+  toggleScoring() {
+    const isExpanded = this.elements.toggleScoringBtn.dataset.expanded === "true";
+    const container = this.elements.scoringForm;
+
+    if (isExpanded) {
+      container.classList.add("collapsed");
+      this.elements.toggleScoringBtn.dataset.expanded = "false";
+    } else {
+      container.classList.remove("collapsed");
+      this.elements.toggleScoringBtn.dataset.expanded = "true";
+    }
+  },
+
   // 更新历史记录空状态显示
   updateHistoryEmptyState(hasRecords) {
     if (hasRecords) {
@@ -1247,6 +1277,12 @@ const App = {
     );
     UI.elements.toggleHistoryBtn.addEventListener("click", () =>
       UI.toggleHistory(),
+    );
+    UI.elements.toggleDiceBtn.addEventListener("click", () =>
+      UI.toggleDice(),
+    );
+    UI.elements.toggleScoringBtn.addEventListener("click", () =>
+      UI.toggleScoring(),
     );
 
     // 检查存档

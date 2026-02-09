@@ -171,7 +171,12 @@
         <h1>杭州麻将计分器</h1>
         <!-- 骰子区域 -->
         <div class="dice-section">
-          <h2>🎲 投掷骰子</h2>
+          <div class="section-header">
+            <h2>🎲 投掷骰子</h2>
+            <button id="toggle-dice-btn" class="toggle-btn" data-expanded="true">
+              <span class="toggle-icon">▼</span>
+            </button>
+          </div>
           <div class="dice-container">
             <div class="dice-wrapper">
               <div class="dice" id="dice1">
@@ -232,7 +237,12 @@
 
         <!-- 计分输入区域 -->
         <div class="scoring-section">
-          <h2>本局计分</h2>
+          <div class="section-header">
+            <h2>💰 本局计分</h2>
+            <button id="toggle-scoring-btn" class="toggle-btn" data-expanded="true">
+              <span class="toggle-icon">▼</span>
+            </button>
+          </div>
           <div class="scoring-form">
             <div class="form-group">
               <label for="winner-select">胡牌玩家:</label>
