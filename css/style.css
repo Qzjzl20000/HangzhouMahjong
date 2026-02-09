@@ -166,7 +166,7 @@ h1, h2, h3 {
 
 .player-score-input,
 .player-consecutive-input {
-    width: 70px;
+    width: 85px;
     padding: 8px 10px;
     border: 2px solid #ddd;
     border-radius: 8px;
@@ -274,15 +274,15 @@ h1, h2, h3 {
     color: #495057;
     font-size: 16px;
     font-weight: 600;
-    margin: 0 0 12px 0;
+    margin: 0 0 15px 0;
     text-align: center;
 }
 
-.banker-selection {
+.banker-selection-wrapper {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 8px;
-    margin-bottom: 12px;
+    align-items: center;
 }
 
 .banker-select-btn {
@@ -315,20 +315,32 @@ h1, h2, h3 {
     border-color: #f0465b;
 }
 
-.consecutive-input-row {
+.consecutive-input-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 6px;
+    background: #fff;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 2px solid #dee2e6;
+    height: 40px;
+}
+
+.consecutive-input-item .input-label {
+    color: #495057;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
 }
 
 .consecutive-count-input {
-    width: 70px;
-    padding: 10px 8px;
+    width: 60px;
+    padding: 8px 6px;
     border: 2px solid #ddd;
-    border-radius: 8px;
+    border-radius: 6px;
     font-size: 14px;
-    height: 40px;
+    height: 36px;
     text-align: center;
     transition: border-color 0.3s ease;
 }
@@ -929,12 +941,12 @@ h1, h2, h3 {
 
     .banker-setup h4 {
         font-size: 15px;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
     }
 
-    .banker-selection {
-        gap: 6px;
-        margin-bottom: 10px;
+    .banker-selection-wrapper {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
     }
 
     .banker-select-btn {
@@ -943,11 +955,19 @@ h1, h2, h3 {
         height: 38px;
     }
 
+    .consecutive-input-item {
+        grid-column: 1 / -1;
+        justify-content: center;
+        width: auto;
+        max-width: 150px;
+        margin: 0 auto;
+    }
+
     .consecutive-count-input {
-        width: 65px;
-        padding: 8px 6px;
+        width: 60px;
+        padding: 8px 4px;
         font-size: 13px;
-        height: 38px;
+        height: 36px;
     }
 
     .players-section {
