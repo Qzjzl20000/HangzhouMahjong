@@ -406,6 +406,17 @@ const UI = {
                 });
             });
         });
+
+        // 绑定玩家卡片点击事件：点击卡片选择胡牌玩家
+        this.elements.playerCards.forEach((card, index) => {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', () => {
+                // 设置胡牌玩家下拉框的值为该玩家ID
+                this.elements.winnerSelect.value = index;
+                // 触发change事件，调用handlePlayerSelect
+                this.elements.winnerSelect.dispatchEvent(new Event('change'));
+            });
+        });
     },
 
     showSetupScreen() {
