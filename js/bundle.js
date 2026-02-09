@@ -392,8 +392,19 @@ const UI = {
             dice1Value: document.getElementById('dice1-value'),
             dice2Value: document.getElementById('dice2-value'),
             diceTotal: document.getElementById('dice-total'),
-            rollDiceBtn: document.getElementById('roll-dice-btn')
+            rollDiceBtn: document.getElementById('roll-dice-btn'),
+            // 图表和折叠相关元素
+            scoreChart: document.getElementById('score-chart'),
+            chartContainer: document.querySelector('.chart-container'),
+            chartEmptyState: document.querySelector('.chart-empty-state'),
+            toggleChartBtn: document.getElementById('toggle-chart-btn'),
+            historyListContainer: document.querySelector('.history-list-container'),
+            historyEmptyState: document.querySelector('.history-empty-state'),
+            toggleHistoryBtn: document.getElementById('toggle-history-btn')
         };
+
+        // 图表实例
+        this.chart = null;
 
         // 当前选中的庄家
         this.currentBankerId = 0;
