@@ -731,6 +731,17 @@ const UI = {
         });
     },
 
+    setWinnerSelection(winnerId) {
+        this.elements.playerCards.forEach(card => {
+            const playerId = parseInt(card.id.replace('player', '').replace('-card', ''));
+            if (playerId === parseInt(winnerId)) {
+                card.classList.add('winner-selected');
+            } else {
+                card.classList.remove('winner-selected');
+            }
+        });
+    },
+
     bindBankerSelection(callback) {
         this.elements.bankerSelectBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -812,6 +823,16 @@ const App = {
     handlePlayerSelect() {
         const winnerId = UI.elements.winnerSelect.value;
         const winTypeId = UI.elements.winTypeSelect.value;
+
+        // 更新胡牌玩家卡片的选中状态
+        if (winnerId) {
+            UI.setWinnerSelection(winnerId);
+        } else {
+            // 清空选择时移除所有选中效果
+            UI.elements.playerCards.forEach(card => {
+                card.classList.remove('winner-selected');
+            });
+        }
 
         if (!winnerId || !winTypeId) {
             UI.clearScorePreview();
