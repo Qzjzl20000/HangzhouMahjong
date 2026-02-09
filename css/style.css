@@ -455,6 +455,7 @@ h1, h2, h3 {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08),
                 0 1px 3px rgba(0, 0, 0, 0.05);
     position: relative;
+    border: none;
 }
 
 .player-card:hover {
