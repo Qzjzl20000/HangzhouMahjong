@@ -1152,14 +1152,17 @@ const UI = {
       dataset.label = players[index].name;
     });
 
-    // 当局数超过8局时，设置图表最小宽度以启用横向滚动
+    // 只在桌面端（屏幕宽度大于768px）且局数超过8局时，启用横向滚动
     const totalPoints = labels.length;
-    if (totalPoints > 8) {
+    const isDesktop = window.innerWidth > 768;
+    if (isDesktop && totalPoints > 8) {
       // 计算合适的宽度：每个数据点至少需要80px
       const minWidth = Math.max(100, totalPoints * 80);
       this.elements.scoreChart.style.minWidth = `${minWidth}px`;
     } else {
-      this.elements.scoreChart.style.minWidth = "100%";
+      // 移动端或局数较少时，保持自适应宽度
+      this.elements.scoreChart.style.minWidth = "";
+      this.elements.scoreChart.style.width = "100%";
     }
 
     this.chart.update();
