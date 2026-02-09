@@ -608,7 +608,7 @@ const UI = {
                             <span class="score-current">${playerAfter.score}</span>
                             <span class="score-change ${change && change.change >= 0 ? 'score-positive' : 'score-negative'}">(${changeText})</span>
                         </div>
-                        ${isBanker ? `<div class="history-player-info">${round.bankerConsecutiveWins}连庄</div>` : ''}
+                        ${isBanker ? `<div class="history-player-info">${round.bankerConsecutiveWins}连庄</div>` : '<div class="history-player-info">闲家</div>'}
                     </div>
                 `;
             });
@@ -633,7 +633,7 @@ const UI = {
                             <span class="score-current">${playerAfter.score}</span>
                             <span class="score-change ${change && change.change >= 0 ? 'score-positive' : 'score-negative'}">(${changeText})</span>
                         </div>
-                        ${isBanker ? `<div class="history-player-info">${round.bankerConsecutiveWins}连庄</div>` : ''}
+                        ${isBanker ? `<div class="history-player-info">${round.bankerConsecutiveWins}连庄</div>` : '<div class="history-player-info">闲家</div>'}
                     </div>
                 `;
             });
