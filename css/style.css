@@ -810,7 +810,13 @@ h1, h2, h3 {
     }
 
     .player-config-row {
-        gap: 10px;
+        gap: 8px;
+        flex-wrap: nowrap;
+    }
+
+    .player-config-row .input-label {
+        font-size: 13px;
+        margin-right: 2px;
     }
 
     .banker-consecutive-group {
@@ -818,16 +824,17 @@ h1, h2, h3 {
     }
 
     .player-name-input {
-        padding: 12px 14px;
-        font-size: 15px;
+        padding: 12px 4px;
+        font-size: 14px;
         height: 44px;
+        width: 55px;
     }
 
     .player-score-input,
     .player-consecutive-input {
-        width: 75px;
-        padding: 10px 12px;
-        font-size: 15px;
+        width: 55px;
+        padding: 10px 4px;
+        font-size: 14px;
         height: 44px;
     }
 
@@ -921,11 +928,43 @@ h1, h2, h3 {
 
     .player-input {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
     }
 
     .player-input input[type="text"] {
-        width: 100%;
+        width: auto;
+        flex: 1;
+        min-width: 60px;
+        padding: 10px 6px;
+    }
+
+    .player-config-row {
+        flex-wrap: wrap;
+        gap: 8px 12px;
+        /* flex-wrap: nowrap;
+        gap: 4px;
+        justify-content: space-between; */
+    }
+
+    .player-config-row .input-label {
+        font-size: 13px;
+        /* font-size: 11px; */
+        white-space: nowrap;
+        /* margin-right: 0; */
+    }
+
+    .player-config-row .input-label + input {
+        flex: 1;
+        min-width: 100px;
+    }
+
+    .player-score-input {
+        width: 70px;
+        padding: 10px 8px;
+        font-size: 14px;
+        /* width: 50px;
+        padding: 10px 2px;
+        font-size: 13px; */
     }
 
     .score-preview-info,
