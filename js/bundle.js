@@ -880,6 +880,49 @@ const UI = {
                 }
             }
         });
+    },
+
+    updateChart(rounds, players) {
+        if (!this.chart) {
+            this.initChart(players);
+            return;
+        }
+
+        // 如果没有历史记录，显示空状态
+        if (!rounds || rounds.length === 0) {
+            this.elements.chartEmptyState.classList.remove('hidden');
+            return;
+        }
+
+        // 隐藏空状态
+        this.elements.chartEmptyState.classList.add('hidden');
+
+        // 构建标签和数据
+        const labels = ['开局'];
+        const playerData = [[], [], [], []];
+
+        // 添加开局积分
+        players.forEach((player, index) => {
+            playerData[index].push(player.initialScore || player.score);
+        });
+
+        // 从历史记录中提取每局的积分
+        rounds.forEach((round, roundIndex) => {
+            labels.push(`第${roundIndex + 1}局`);
+            const playersAfter = round.playersAfter || round.players;
+            playersAfter.forEach((player, index) => {
+                playerData[index].push(player.score);
+            });
+        });
+
+        // 更新图表数据
+        this.chart.data.labels = labels;
+        this.chart.data.datasets.forEach((dataset, index) => {
+            dataset.data = playerData[index];
+            dataset.label = players[index].name;
+        });
+
+        this.chart.update();
     }
 };
 
