@@ -540,14 +540,15 @@ h1, h2, h3 {
 .player-card.winner-selected {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15),
-                0 3px 10px rgba(0, 0, 0, 0.1);
-    border: 3px solid #f1c40f !important;
+                0 3px 10px rgba(0, 0, 0, 0.1),
+                inset 0 0 0 3px #f1c40f;
 }
 
 .player-card.winner-selected:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15),
-                0 3px 10px rgba(0, 0, 0, 0.1);
+                0 3px 10px rgba(0, 0, 0, 0.1),
+                inset 0 0 0 3px #f1c40f;
 }
 
 .player-card.winner-selected .player-name {
