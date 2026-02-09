@@ -815,8 +815,13 @@ const App = {
             return;
         }
 
-        if (playerScores.some(score => score < 0)) {
-            alert('积分必须大于等于0');
+        if (playerScores.some(score => score <= 0 || !Number.isInteger(score))) {
+            alert('积分必须为正整数');
+            return;
+        }
+
+        if (consecutiveWins <= 0 || !Number.isInteger(consecutiveWins)) {
+            alert('连庄数必须为正整数');
             return;
         }
 
